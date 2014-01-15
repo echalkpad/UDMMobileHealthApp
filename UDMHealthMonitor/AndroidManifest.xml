@@ -27,10 +27,18 @@
             android:label="@string/title_activity_display_message"
             android:parentActivityName="com.udm.healthmonitor.MainActivity" >
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.udm.healthmonitor.MainActivity" />
-			
-    </activity>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.udm.healthmonitor.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.udm.healthmonitor.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName="com.udm.healthmonitor.MainActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.udm.healthmonitor.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
