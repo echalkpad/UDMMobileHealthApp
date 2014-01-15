@@ -259,6 +259,7 @@ public class LoginActivity extends Activity {
 
 			if (success) {
 				finish();
+				
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));

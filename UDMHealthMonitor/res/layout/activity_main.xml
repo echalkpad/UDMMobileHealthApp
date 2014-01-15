@@ -2,19 +2,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity" >
 
-<LinearLayout 
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-   
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="193dp"
+        android:layout_height="246dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.54"
+        android:contentDescription="jnb"
+        android:src="@drawable/ic_launcher" />
     
     <Button
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:text="@string/button_log_in" 
-        android:onClick="navigateLogIn"/>
-
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:onClick="navigateLogIn"
+        android:text="@string/button_log_in" />
 </LinearLayout>
 
 </merge>
