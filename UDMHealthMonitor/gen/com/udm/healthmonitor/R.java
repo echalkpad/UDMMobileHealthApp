@@ -26,22 +26,27 @@ public final class R {
         public static final int udm_splash=0x7f020002;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f090009;
-        public static final int action_settings=0x7f090008;
-        public static final int button1=0x7f090007;
-        public static final int email=0x7f090003;
-        public static final int login=0x7f090005;
-        public static final int login_form=0x7f090002;
-        public static final int login_status=0x7f090000;
-        public static final int login_status_message=0x7f090001;
-        public static final int password=0x7f090004;
-        public static final int sign_in_button=0x7f090006;
+        public static final int action_forgot_password=0x7f09000d;
+        public static final int action_settings=0x7f09000c;
+        public static final int button1=0x7f09000b;
+        public static final int data_entry_button=0x7f090001;
+        public static final int data_entry_edit_command=0x7f090000;
+        public static final int email=0x7f090007;
+        public static final int login=0x7f090009;
+        public static final int login_form=0x7f090006;
+        public static final int login_status=0x7f090004;
+        public static final int login_status_message=0x7f090005;
+        public static final int password=0x7f090008;
+        public static final int sign_in_button=0x7f09000a;
+        public static final int textView1=0x7f090003;
+        public static final int toggle=0x7f090002;
     }
     public static final class layout {
-        public static final int activity_display_message=0x7f030000;
-        public static final int activity_login=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int splash=0x7f030003;
+        public static final int activity_data_entry=0x7f030000;
+        public static final int activity_display_message=0x7f030001;
+        public static final int activity_login=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int splash=0x7f030004;
     }
     public static final class menu {
         public static final int display_message=0x7f080000;
@@ -59,6 +64,7 @@ public final class R {
         public static final int app_name=0x7f060000;
         public static final int button_log_in=0x7f060004;
         public static final int button_send=0x7f060003;
+        public static final int edit_command_hint=0x7f060014;
         public static final int edit_message=0x7f060002;
         public static final int error_field_required=0x7f060013;
         public static final int error_incorrect_password=0x7f060012;

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="25dp"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/data_entry_edit_command"
+            android:hint="@string/edit_command_hint"/>
+        
+        <LinearLayout  android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+        
+        <Button android:text="@string/button_send"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="20"
+            android:id="@+id/data_entry_button"/>
+        
+        <ToggleButton android:id="@+id/toggle"
+            android:layout_weight="80"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+        
+        </LinearLayout>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView" />
+        
+    </LinearLayout>
+    
+
+</ScrollView>

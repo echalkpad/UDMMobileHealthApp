@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 public class Menu extends ListActivity{
 	
-	private String[] activities = {"DisplayMessageActivity","Dos", "Tres"};
+	private String[] activities = {"DisplayMessageActivity","DataEntry", "Tres"};
 	private static final String PACKAGE_NAME = "com.udm.healthmonitor.";
 	
 	@Override
