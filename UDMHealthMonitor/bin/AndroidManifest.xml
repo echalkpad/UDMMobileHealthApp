@@ -23,6 +23,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.udm.healthmonitor.Menu"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.udm.healthmonitor.Menu" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.udm.healthmonitor.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>

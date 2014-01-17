@@ -1,0 +1,9 @@
+package com.udm.healthmonitor;
+
+import android.app.ListActivity;
+
+public class Menu extends ListActivity{
+	
+	private String[] activities = {"DisplayMessageActivity","Dos", "Tres"};
+
+}

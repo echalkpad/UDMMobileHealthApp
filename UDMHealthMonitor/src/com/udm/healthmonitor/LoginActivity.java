@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -258,7 +259,10 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
+				Intent mainActivity = new Intent("com.udm.healthmonitor.Menu");
+				startActivity(mainActivity);
 				finish();
+				
 				
 			} else {
 				mPasswordView
