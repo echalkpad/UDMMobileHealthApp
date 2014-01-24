@@ -20,6 +20,7 @@ public class Splash extends Activity{
 		
 		
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		
 		boolean isMusicPlayeable = preferences.getBoolean("music", true);
 		if(isMusicPlayeable)
 			splashSound.start();
