@@ -91,6 +91,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.udm.healthmonitor.MainActivity" />
         </activity>
+        
+        
+         <activity android:name="com.udm.healthmonitor.service.DeviceScanActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+               <action android:name="com.udm.healthmonitor.service.DeviceScanActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.udm.healthmonitor.service.DeviceControlActivity"/>
+        <service android:name="com.udm.healthmonitor.service.BluetoothLeService" android:enabled="true"/>
        
         
     </application>
