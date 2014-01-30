@@ -11,14 +11,16 @@ import android.widget.ListView;
 
 public class Menu extends ListActivity{
 	
-	private String[] activities = {"DisplayMessageActivity","DataEntry", "Tres"};
+	private String[] activities = {"DataEntry","DisplayMessageActivity", "DeviceScanActivity"};
+	private String[] activitiesNames = {"Personal Information","Display Lasted Information", "Current Blood Pressuare"};
 	private static final String PACKAGE_NAME = "com.udm.healthmonitor.";
+	private static final String BLUETOOTH_PACKAGE_NAME = "com.udm.healthmonitor.service.";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setListAdapter(new ArrayAdapter<String>(Menu.this, android.R.layout.simple_list_item_1, activities));
+		setListAdapter(new ArrayAdapter<String>(Menu.this, android.R.layout.simple_list_item_1, activitiesNames));
 	}
 
 	@Override
@@ -26,9 +28,15 @@ public class Menu extends ListActivity{
 		super.onListItemClick(l, v, position, id);
 		
 		String selectedActivity = activities[position];
+		String packge = null;
 		
+		if(position <= 1)
+			packge = PACKAGE_NAME;
+		else
+			packge = BLUETOOTH_PACKAGE_NAME;
+			
 		try {
-			Class activityClassName = Class.forName(PACKAGE_NAME+selectedActivity);
+			Class activityClassName = Class.forName(packge+selectedActivity);
 			Intent openActivity = new Intent(Menu.this, activityClassName);
 			startActivity(openActivity);
 		} catch (ClassNotFoundException e) {

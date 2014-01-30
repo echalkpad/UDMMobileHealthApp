@@ -1,6 +1,5 @@
 package com.udm.healthmonitor.service;
 
-import static com.udm.healthmonitor.R.*;
 import android.app.Activity;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
@@ -131,7 +130,7 @@ public class DeviceControlActivity extends Activity {
  
     private void clearUI() {
         mGattServicesList.setAdapter((SimpleExpandableListAdapter) null);
-//        mDataField.setText(R.string.no_data);
+        mDataField.setText(R.string.no_data);
     }
  
     @Override

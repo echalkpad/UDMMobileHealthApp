@@ -15,50 +15,50 @@ public class DataEntry extends Activity{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_data_entry);
 		
-		Button edit_button = (Button) findViewById(R.id.data_entry_button);
-		final ToggleButton toggle = (ToggleButton) findViewById(R.id.toggle);
-		final EditText editText = (EditText) findViewById(R.id.data_entry_edit_command);
-		final TextView textView = (TextView) findViewById(R.id.textView1);
+//		Button edit_button = (Button) findViewById(R.id.data_entry_button);
+//		final ToggleButton toggle = (ToggleButton) findViewById(R.id.toggle);
+//		final EditText editText = (EditText) findViewById(R.id.data_entry_edit_command);
+//		final TextView textView = (TextView) findViewById(R.id.textView1);
 		
-		toggle.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				if(toggle.isChecked()){
-					editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-				}else{
-					editText.setInputType(InputType.TYPE_CLASS_TEXT);
-				}
-				
-			}
-		});
+//		toggle.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				
+//				if(toggle.isChecked()){
+//					editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//				}else{
+//					editText.setInputType(InputType.TYPE_CLASS_TEXT);
+//				}
+//				
+//			}
+//		});
 		
-		edit_button.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				String typedCommand = editText.getText().toString();
-				textView.setText(typedCommand);
-				if(typedCommand.equals("left")){
-					textView.setGravity(Gravity.LEFT);
-				}else if(typedCommand.equals("right")){
-					textView.setGravity(Gravity.RIGHT);
-				}else if(typedCommand.equals("center")){
-					textView.setGravity(Gravity.CENTER);
-				}else if(typedCommand.equals("blue")){
-					textView.setTextColor(Color.BLUE);
-				}else if(typedCommand.equals("WTF")){
-					textView.setText("WTF!!");
-					textView.setTextSize(18);
-				}
-				
-			}
-		});
+//		edit_button.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				String typedCommand = editText.getText().toString();
+//				textView.setText(typedCommand);
+//				if(typedCommand.equals("left")){
+//					textView.setGravity(Gravity.LEFT);
+//				}else if(typedCommand.equals("right")){
+//					textView.setGravity(Gravity.RIGHT);
+//				}else if(typedCommand.equals("center")){
+//					textView.setGravity(Gravity.CENTER);
+//				}else if(typedCommand.equals("blue")){
+//					textView.setTextColor(Color.BLUE);
+//				}else if(typedCommand.equals("WTF")){
+//					textView.setText("WTF!!");
+//					textView.setTextSize(18);
+//				}
+//				
+//			}
+//		});
 	}
 
 }
