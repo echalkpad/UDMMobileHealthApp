@@ -1,0 +1,4 @@
+1391051766478	Rename local variable 'heartRate'
+1391051830151	Rename field 'BLOOD_PRESSURE_FEATURE'
+1391051857597	Rename field 'BLOOD_PRESSURE_FEATURE'
+1391200840924	Extract method 'readAndNotifyCharacteristic'

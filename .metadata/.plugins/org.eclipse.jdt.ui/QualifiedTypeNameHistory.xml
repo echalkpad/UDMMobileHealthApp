@@ -13,4 +13,5 @@
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.udm.healthmonitor.R.id"/>
+<fullyQualifiedTypeName name="com.udm.healthmonitor.service.SampleGattAttributes"/>
 </qualifiedTypeNameHistroy>
