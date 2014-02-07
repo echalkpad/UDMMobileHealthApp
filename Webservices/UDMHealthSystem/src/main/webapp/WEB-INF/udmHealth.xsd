@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.udm.com/UDMHealthWebServices" xmlns:tns="http://www.udm.com/UDMHealthWebServices"
+	targetNamespace="http://www.udm.com/UDMHealthWebServices" elementFormDefault="qualified">
+
+	<xsd:complexType name="responseHeaderType">
+		<xsd:sequence>
+			<xsd:element name="statusCode">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="messageList" type="tns:message" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="message">
+		<xsd:sequence>
+			<xsd:element name="message" type="xsd:string" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:element name="createUserRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="firstName" type="xsd:string" />
+				<xsd:element name="lastName" type="xsd:string" />
+				<xsd:element name="dateOfBirth" type="xsd:date" />
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="phoneNumber" type="xsd:string" />
+				<xsd:element name="ssn" type="xsd:string" />
+				<xsd:element name="street" type="xsd:string" />
+				<xsd:element name="city" type="xsd:string" />
+				<xsd:element name="zipCode" type="xsd:string" />
+				<xsd:element name="password" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="createUserResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="responseHeader" type="tns:responseHeaderType" nillable="false" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:datasource.properties</value>			
+			</list>
+		</property>
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+
+	<jee:jndi-lookup id="wcsDataSource" jndi-name="java:/wcsDS" default-ref="defaultWcsDataSource" />
+
+	<bean id="defaultWcsDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${wcs.jdbc.driverClassName}"/>
+        <property name="url" value="${wcs.jdbc.url}"/>
+        <property name="username" value="${wcs.jdbc.username}"/>
+        <property name="password" value="${wcs.jdbc.password}"/>
+        <property name="accessToUnderlyingConnectionAllowed" value="true"/>
+	</bean>
+
+</beans>

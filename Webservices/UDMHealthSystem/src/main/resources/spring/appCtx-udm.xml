@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+	<context:component-scan base-package="com.udm.health" />
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+	<bean id="springContextHolder" class="com.budco.wcs.spring.SpringContextHolder" />
+	
+	<bean id="openSessionInView" class="org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter" />
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="dataSource" ref="wcsDataSource" />
+	</bean>
+	
+    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+    	<property name="contextPath" value="com.budco.wcs.domain.ws" />
+    </bean>
+	
+	<sec:global-method-security secured-annotations="enabled" />
+
+	<sec:authentication-manager>
+		<sec:authentication-provider ref="daoAuthenticationProvider" />
+	</sec:authentication-manager>
+    
+	<!--
+    <bean id="webServiceAuthenticationManager" class="org.springframework.security.authentication.ProviderManager">
+	  <property name="providers">
+	    <list>
+	      <ref local="daoAuthenticationProvider"/>
+	    </list>
+	  </property>
+	</bean>
+	-->
+    <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+	  <property name="userDetailsService" ref="inMemoryDaoImpl"/>
+	</bean>
+	
+	<sec:user-service id="inMemoryDaoImpl">
+	    <sec:user name="pfizer" password="7xWFUAv5" authorities="ROLE_USER" />
+	</sec:user-service>
+	
+	<bean id="wcsStoredProcedureDao" class="com.budco.wcs.dao.WcsStoredProcedureDao">
+		<property name="dataSource" ref="wcsDataSource" />
+	</bean>
+	
+	<bean id="wcsRequestProcessor" class="com.budco.wcs.processor.WcsRequestProcessor">
+		<property name="processorMap">
+			<map>
+				<entry key="com.budco.wcs.domain.internal.GetHCPDMTargetCountRequest">
+					<bean class="com.budco.wcs.processor.GetHcpDirectMailTargetCountProcessor" />					
+				</entry>
+				<entry key="com.budco.wcs.domain.ws.GetSourceListRequest">
+					<bean class="com.budco.wcs.processor.GetsourceListProcessor" />					
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="validator" class="com.budco.wcs.validation.Validator">
+		<property name="validators">
+			<list>
+				<bean class="com.budco.wcs.validation.validator.GetHcpDirectMailTargetCountValidator" />
+				<bean class="com.budco.wcs.validation.validator.GetSourceListValidator" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="validationResponseCreator" class="com.budco.wcs.response.ResponseAppender">
+		<property name="adapters">
+			<!-- IMPORTANT: Order most to least specific. -->
+			<list>
+				<bean class="com.budco.wcs.response.GetHcpDirectMailTargetCountValidationAdapter" />
+				<bean class="com.budco.wcs.response.GetSourceCodeListValidationAdapter" />
+				<bean class="com.budco.wcs.response.GenericValidationAdapter" />
+				<bean class="com.budco.wcs.response.AuthenticationExceptionAdapter" />
+				<bean class="com.budco.wcs.response.CatchAllExceptionAdapter" />
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
+		<property name="mappingFiles">
+			<list>
+				<value>mapping.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="springValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	
+</beans>
