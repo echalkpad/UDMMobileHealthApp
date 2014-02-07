@@ -15,7 +15,7 @@
 	<context:component-scan base-package="com.udm.health" />
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 
-	<bean id="springContextHolder" class="com.budco.wcs.spring.SpringContextHolder" />
+	<bean id="springContextHolder" class="com.udm.health.spring.SpringContextHolder" />
 	
 	<bean id="openSessionInView" class="org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter" />
 
@@ -25,7 +25,7 @@
 	</bean>
 	
     <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-    	<property name="contextPath" value="com.budco.wcs.domain.ws" />
+    	<property name="contextPath" value="com.udm.health.domain.ws" />
     </bean>
 	
 	<sec:global-method-security secured-annotations="enabled" />
@@ -51,41 +51,36 @@
 	    <sec:user name="pfizer" password="7xWFUAv5" authorities="ROLE_USER" />
 	</sec:user-service>
 	
-	<bean id="wcsStoredProcedureDao" class="com.budco.wcs.dao.WcsStoredProcedureDao">
-		<property name="dataSource" ref="wcsDataSource" />
-	</bean>
+<!-- 	<bean id="wcsStoredProcedureDao" class="com.udm.health.dao.WcsStoredProcedureDao"> -->
+<!-- 		<property name="dataSource" ref="wcsDataSource" /> -->
+<!-- 	</bean> -->
 	
-	<bean id="wcsRequestProcessor" class="com.budco.wcs.processor.WcsRequestProcessor">
+	<bean id="wcsRequestProcessor" class="com.udm.health.processor.UDMRequestProcessor">
 		<property name="processorMap">
 			<map>
-				<entry key="com.budco.wcs.domain.internal.GetHCPDMTargetCountRequest">
-					<bean class="com.budco.wcs.processor.GetHcpDirectMailTargetCountProcessor" />					
-				</entry>
-				<entry key="com.budco.wcs.domain.ws.GetSourceListRequest">
-					<bean class="com.budco.wcs.processor.GetsourceListProcessor" />					
+				<entry key="com.udm.health.domain.ws.CreateUserRequest">
+					<bean class="com.udm.health.processor.CreateUserProcessor" />					
 				</entry>
 			</map>
 		</property>
 	</bean>
 	
-	<bean id="validator" class="com.budco.wcs.validation.Validator">
-		<property name="validators">
-			<list>
-				<bean class="com.budco.wcs.validation.validator.GetHcpDirectMailTargetCountValidator" />
-				<bean class="com.budco.wcs.validation.validator.GetSourceListValidator" />
-			</list>
-		</property>
+	<bean id="validator" class="com.udm.health.validation.Validator">
+<!-- 		<property name="validators"> -->
+<!-- 			<list> -->
+<!-- 				<bean class="com.udm.health.validation.validator.GetHcpDirectMailTargetCountValidator" /> -->
+<!-- 				<bean class="com.udm.health.validation.validator.GetSourceListValidator" /> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
 	</bean>
 	
-	<bean id="validationResponseCreator" class="com.budco.wcs.response.ResponseAppender">
+	<bean id="validationResponseCreator" class="com.udm.health.response.ResponseAppender">
 		<property name="adapters">
 			<!-- IMPORTANT: Order most to least specific. -->
 			<list>
-				<bean class="com.budco.wcs.response.GetHcpDirectMailTargetCountValidationAdapter" />
-				<bean class="com.budco.wcs.response.GetSourceCodeListValidationAdapter" />
-				<bean class="com.budco.wcs.response.GenericValidationAdapter" />
-				<bean class="com.budco.wcs.response.AuthenticationExceptionAdapter" />
-				<bean class="com.budco.wcs.response.CatchAllExceptionAdapter" />
+				<bean class="com.udm.health.response.GenericValidationAdapter" />
+				<bean class="com.udm.health.response.AuthenticationExceptionAdapter" />
+				<bean class="com.udm.health.response.CatchAllExceptionAdapter" />
 			</list>
 		</property>
 	</bean>

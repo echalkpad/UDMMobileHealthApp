@@ -24,20 +24,20 @@
    		<property name="xsd" value="/WEB-INF/udmHealth.xsd"/>
 	</bean>
 
- 	<bean id="wcs" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">   
+ 	<bean id="udmHealth" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">   
 	    <property name="schema" ref="schema" />
 		<property name="portTypeName" value="udmHealthPort" />
 		<property name="locationUri" value="/ws/" />  
 		<property name="soapActions">
 	      <props>
-	        <prop key="createUserRequest">http://www.udm.com/CreateUserRequest</prop>
+	        <prop key="createUser">http://www.udm.com/CreateUserRequest</prop>
 	      </props>
 	    </property>  
 	</bean>
 	
 	<sws:interceptors>
-		<bean class="com.budco.wcs.interceptor.Wss4jCredentialCapturingInterceptor" />
-		<bean class="com.budco.wcs.interceptor.RequestLogInterceptor" />
+		<bean class="com.udm.health.interceptor.Wss4jCredentialCapturingInterceptor" />
+		<bean class="com.udm.health.interceptor.RequestLogInterceptor" />
   	</sws:interceptors>
   	
 	<!-- The following is done in order to use a custom marshaller -->

@@ -21,7 +21,7 @@ import com.udm.health.domain.hibernate.RequestLog;
 //import com.udm.health.domain.ws.GetSourceListRequest;
 //import com.udm.health.domain.ws.GetSourceListResponse;
 import com.udm.health.domain.ws.HasResponseHeader;
-import com.udm.health.processor.WcsRequestProcessor;
+import com.udm.health.processor.UDMRequestProcessor;
 import com.udm.health.response.ResponseAppender;
 import com.udm.health.service.RequestLogService;
 import com.udm.health.validation.ErrorType;

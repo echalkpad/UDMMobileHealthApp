@@ -6,7 +6,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:/spring/appCtx-udm-root.xml.xml
+			classpath:/spring/appCtx-udm-root.xml
 		</param-value>
 	</context-param>
 

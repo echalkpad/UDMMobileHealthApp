@@ -18,7 +18,7 @@ import org.springframework.ws.context.MessageContext;
 import com.udm.health.domain.hibernate.RequestLog;
 import com.udm.health.domain.ws.HasResponseHeader;
 import com.udm.health.domain.ws.RequestClassName;
-import com.udm.health.processor.WcsRequestProcessor;
+import com.udm.health.processor.UDMRequestProcessor;
 import com.udm.health.response.ResponseAppender;
 import com.udm.health.service.RequestLogService;
 import com.udm.health.validation.ValidationResults;
@@ -29,7 +29,7 @@ public abstract class BaseEndpoint<I extends RequestClassName, O extends HasResp
 	private static final Logger logger = LoggerFactory.getLogger(BaseEndpoint.class);
 	
 	@Autowired
-	private WcsRequestProcessor requestProcessor;
+	private UDMRequestProcessor requestProcessor;
 	@Autowired
 	private Validator validator;
 	@Autowired
@@ -90,7 +90,7 @@ public abstract class BaseEndpoint<I extends RequestClassName, O extends HasResp
 	protected abstract Object processRequest(I request);
 	protected abstract O createResponse();
 	
-	public void setRequestProcessor(WcsRequestProcessor requestProcessor) {
+	public void setRequestProcessor(UDMRequestProcessor requestProcessor) {
 		this.requestProcessor = requestProcessor;
 	}
 	
