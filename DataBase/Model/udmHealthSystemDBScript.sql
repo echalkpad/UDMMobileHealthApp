@@ -52,19 +52,18 @@ DROP TABLE IF EXISTS `udmhealthsystem`.`User` ;
 
 CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`User` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
-  `firstName` VARCHAR(45) NOT NULL,
-  `lastName` VARCHAR(45) NOT NULL,
-  `bod` DATE NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `phoneNumber` VARCHAR(45) NOT NULL,
-  `ssn` VARCHAR(45) NOT NULL,
+  `firstName` VARCHAR(45) NULL,
+  `lastName` VARCHAR(45) NULL,
+  `dob` DATE NULL,
+  `email` VARCHAR(45) NULL,
+  `phoneNumber` VARCHAR(45) NULL,
+  `ssn` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `zipCode` VARCHAR(5) NULL,
-  `idState` INT NOT NULL,
-  `idPhysician` INT NOT NULL,
+  `idState` INT NULL,
+  `idPhysician` INT NULL,
   PRIMARY KEY (`idUser`),
-  UNIQUE INDEX `ssn_UNIQUE` (`ssn` ASC),
   INDEX `fk_User_State_idx` (`idState` ASC),
   INDEX `fk_User_Physician1_idx` (`idPhysician` ASC),
   CONSTRAINT `fk_User_State`
@@ -245,6 +244,39 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`Notification` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `udmhealthsystem`.`request_logs`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `udmhealthsystem`.`request_logs` ;
+
+CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`request_logs` (
+  `id_request` INT NOT NULL AUTO_INCREMENT,
+  `request_xml` BLOB NULL,
+  `response_xml` BLOB NULL,
+  `service_name` VARCHAR(45) NULL,
+  `response_code` VARCHAR(45) NULL,
+  `response_message` VARCHAR(255) NULL,
+  `create_date` DATETIME NULL,
+  `update_date` DATETIME NULL,
+  PRIMARY KEY (`id_request`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `udmhealthsystem`.`services`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `udmhealthsystem`.`services` ;
+
+CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`services` (
+  `id_service` INT NOT NULL AUTO_INCREMENT,
+  `service_name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
+  `logging` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`id_service`))
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -318,6 +350,16 @@ USE `udmhealthsystem`;
 INSERT INTO `udmhealthsystem`.`Status` (`idStatus`, `code`, `description`) VALUES (1, 'USER_NOTIFIED', 'The user has been notified');
 INSERT INTO `udmhealthsystem`.`Status` (`idStatus`, `code`, `description`) VALUES (2, 'ACTION_TAKEN', 'An action has been taken');
 INSERT INTO `udmhealthsystem`.`Status` (`idStatus`, `code`, `description`) VALUES (3, 'CANCELED', 'Action canceled');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `udmhealthsystem`.`services`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `udmhealthsystem`;
+INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (1, 'CREATE_USER_REQUEST', 'Create user web service', true, true);
 
 COMMIT;
 
