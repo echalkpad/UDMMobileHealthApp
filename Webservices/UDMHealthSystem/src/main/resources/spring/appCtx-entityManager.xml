@@ -7,23 +7,23 @@
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="wcsDataSource" />
+		<property name="dataSource" ref="UDMDataSource" />
 		<property name="packagesToScan">
 			<list>
-				<value>com.budco.wcs.domain.hibernate</value>
+				<value>com.udm.health.domain.hibernate</value>
 			</list>
 		</property>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="false" />
 				<property name="generateDdl" value="false" />
-				<property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect" />
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
 			</bean>
 		</property>				
 	</bean>
 	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<constructor-arg ref="wcsDataSource" />
+		<constructor-arg ref="UDMDataSource" />
 	</bean>
 	
 </beans>

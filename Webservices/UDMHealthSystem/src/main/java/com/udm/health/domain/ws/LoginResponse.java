@@ -38,8 +38,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "responseHeader"
 })
-@XmlRootElement(name = "createUserResponse")
-public class CreateUserResponse implements HasResponseHeader {
+@XmlRootElement(name = "loginResponse")
+public class LoginResponse {
 
     @XmlElement(required = true)
     protected ResponseHeaderType responseHeader;
@@ -67,13 +67,5 @@ public class CreateUserResponse implements HasResponseHeader {
     public void setResponseHeader(ResponseHeaderType value) {
         this.responseHeader = value;
     }
-
-	@Override
-	public ResponseHeader ensureResponseHeader() {
-		if (responseHeader == null) {
-			responseHeader = new ResponseHeaderType();
-		}
-		return (ResponseHeader) responseHeader;
-	}
 
 }

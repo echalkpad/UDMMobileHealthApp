@@ -17,13 +17,13 @@
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 
-	<jee:jndi-lookup id="wcsDataSource" jndi-name="java:/wcsDS" default-ref="defaultWcsDataSource" />
+	<jee:jndi-lookup id="UDMDataSource" jndi-name="java:/UDMDS" default-ref="defaultUDMDataSource" />
 
-	<bean id="defaultWcsDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${wcs.jdbc.driverClassName}"/>
-        <property name="url" value="${wcs.jdbc.url}"/>
-        <property name="username" value="${wcs.jdbc.username}"/>
-        <property name="password" value="${wcs.jdbc.password}"/>
+	<bean id="defaultUDMDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${udm.jdbc.driverClassName}"/>
+        <property name="url" value="${udm.jdbc.url}"/>
+        <property name="username" value="${udm.jdbc.username}"/>
+        <property name="password" value="${udm.jdbc.password}"/>
         <property name="accessToUnderlyingConnectionAllowed" value="true"/>
 	</bean>
 

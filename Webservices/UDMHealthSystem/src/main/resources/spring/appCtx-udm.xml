@@ -21,7 +21,7 @@
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
-		<property name="dataSource" ref="wcsDataSource" />
+		<property name="dataSource" ref="UDMDataSource" />
 	</bean>
 	
     <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
@@ -55,10 +55,10 @@
 <!-- 		<property name="dataSource" ref="wcsDataSource" /> -->
 <!-- 	</bean> -->
 	
-	<bean id="wcsRequestProcessor" class="com.udm.health.processor.UDMRequestProcessor">
+	<bean id="udmRequestProcessor" class="com.udm.health.processor.UDMRequestProcessor">
 		<property name="processorMap">
 			<map>
-				<entry key="com.udm.health.domain.ws.CreateUserRequest">
+				<entry key="com.udm.health.domain.hibernate.User">
 					<bean class="com.udm.health.processor.CreateUserProcessor" />					
 				</entry>
 			</map>
@@ -66,18 +66,18 @@
 	</bean>
 	
 	<bean id="validator" class="com.udm.health.validation.Validator">
-<!-- 		<property name="validators"> -->
-<!-- 			<list> -->
-<!-- 				<bean class="com.udm.health.validation.validator.GetHcpDirectMailTargetCountValidator" /> -->
-<!-- 				<bean class="com.udm.health.validation.validator.GetSourceListValidator" /> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
+		<property name="validators">
+			<list>
+				<bean class="com.udm.health.validation.validator.CreateUserRequestValidator" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="validationResponseCreator" class="com.udm.health.response.ResponseAppender">
 		<property name="adapters">
 			<!-- IMPORTANT: Order most to least specific. -->
 			<list>
+				<bean class="com.udm.health.response.CreateUserValidationAdapter" />
 				<bean class="com.udm.health.response.GenericValidationAdapter" />
 				<bean class="com.udm.health.response.AuthenticationExceptionAdapter" />
 				<bean class="com.udm.health.response.CatchAllExceptionAdapter" />

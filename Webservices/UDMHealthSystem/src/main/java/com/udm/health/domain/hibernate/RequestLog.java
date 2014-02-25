@@ -16,9 +16,8 @@ import javax.persistence.Table;
 public class RequestLog {
 
 	@Id
-    @SequenceGenerator(name = "request_logs_seq", allocationSize = 1, sequenceName = "request_logs_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "request_logs_seq")
-	@Column(name="request_log_pk")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id_request")
 	private Long id;
 	
 

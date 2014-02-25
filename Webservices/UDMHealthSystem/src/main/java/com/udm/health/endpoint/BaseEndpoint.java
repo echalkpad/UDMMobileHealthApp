@@ -47,7 +47,7 @@ public abstract class BaseEndpoint<I extends RequestClassName, O extends HasResp
 		O response = createResponse();
 		
 		try {
-			authenticate(messageContext);
+		//	authenticate(messageContext);
 			ValidationResults validationResults = validator.validate(request);
 	
 			if (validationResults.hasValidationErrors()) {

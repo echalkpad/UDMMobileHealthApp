@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -13,9 +12,8 @@ import javax.persistence.Table;
 public class Service {
 
 	@Id
-    @SequenceGenerator(name = "services_seq", allocationSize = 1, sequenceName = "services_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "services_seq")
-	@Column(name="service_pk")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id_service")
 	private Long id;
 	
 	@Column(name="service_name")
