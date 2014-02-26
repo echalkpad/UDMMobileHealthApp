@@ -9,7 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapAction;
 
-import com.udm.health.domain.hibernate.User;
+import com.udm.health.domain.internal.User;
 import com.udm.health.domain.ws.CreateUserRequest;
 import com.udm.health.domain.ws.CreateUserResponse;
 import com.udm.health.domain.ws.ResponseHeaderType;

@@ -1,12 +1,14 @@
 package com.udm.health.domain.internal;
 
 import com.udm.health.domain.ws.CreateUserRequest;
+import com.udm.health.domain.ws.LoginRequest;
 
 
 
 public enum Service {
 
-	CREATE_USER_REQUEST(CreateUserRequest.class);
+	CREATE_USER_REQUEST(CreateUserRequest.class),
+	LOGIN_USER(LoginRequest.class);
 
 	
 	private Class<?> requestClass;

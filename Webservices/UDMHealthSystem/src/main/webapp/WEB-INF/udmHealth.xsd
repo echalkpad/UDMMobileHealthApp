@@ -29,7 +29,7 @@
 			<xsd:sequence>
 				<xsd:element name="firstName" type="xsd:string" />
 				<xsd:element name="lastName" type="xsd:string" />
-				<xsd:element name="dateOfBirth" type="xsd:date" />
+				<xsd:element name="dateOfBirth" type="xsd:string" />
 				<xsd:element name="email" type="xsd:string" />
 				<xsd:element name="phoneNumber" type="xsd:string" />
 				<xsd:element name="ssn" type="xsd:string" />
@@ -37,6 +37,7 @@
 				<xsd:element name="city" type="xsd:string" />
 				<xsd:element name="zipCode" type="xsd:string" />
 				<xsd:element name="password" type="xsd:string" />
+				<xsd:element name="state" type="xsd:string" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -72,8 +73,8 @@
 	<xsd:element name="loginRequest">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="userId" type="xsd:string" />
-				<xsd:element name="password" type="xsd:date" />
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="password" type="xsd:string" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>

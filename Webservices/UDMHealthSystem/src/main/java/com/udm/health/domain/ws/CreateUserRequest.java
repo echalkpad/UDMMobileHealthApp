@@ -12,9 +12,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.udm.health.domain.internal.Service;
 
@@ -59,7 +57,8 @@ import com.udm.health.domain.internal.Service;
     "street",
     "city",
     "zipCode",
-    "password"
+    "password",
+    "state"
 })
 @XmlRootElement(name = "createUserRequest")
 public class CreateUserRequest implements RequestClassName{
@@ -69,8 +68,7 @@ public class CreateUserRequest implements RequestClassName{
     @XmlElement(required = true)
     protected String lastName;
     @XmlElement(required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dateOfBirth;
+    protected String dateOfBirth;
     @XmlElement(required = true)
     protected String email;
     @XmlElement(required = true)
@@ -85,6 +83,8 @@ public class CreateUserRequest implements RequestClassName{
     protected String zipCode;
     @XmlElement(required = true)
     protected String password;
+    @XmlElement(required = true)
+    protected String state;
 
     /**
      * Gets the value of the firstName property.
@@ -139,10 +139,10 @@ public class CreateUserRequest implements RequestClassName{
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public XMLGregorianCalendar getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -151,10 +151,10 @@ public class CreateUserRequest implements RequestClassName{
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public void setDateOfBirth(XMLGregorianCalendar value) {
+    public void setDateOfBirth(String value) {
         this.dateOfBirth = value;
     }
 
@@ -330,5 +330,14 @@ public class CreateUserRequest implements RequestClassName{
 	public String getRequestClassName() {
 		return Service.CREATE_USER_REQUEST.name();
 	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+	
 
 }

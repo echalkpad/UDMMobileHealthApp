@@ -2,7 +2,7 @@ package com.udm.health.dao.mapping;
 
 import com.udm.health.response.ResponseStatus;
 
-public class CreateUserResponse {
+public class WebServiceResponse {
 
 	private ResponseStatus status;
 
@@ -17,7 +17,7 @@ public class CreateUserResponse {
 			status = ResponseStatus.INVALID_SOURCE;
 		}else if(statusCode.equals(ResponseStatus.FAILURE.getCode())){
 			status = ResponseStatus.FAILURE;
-		}else if(statusCode.equals(ResponseStatus.SUCCESS.getCode())){
+		}else if(statusCode.equals(ResponseStatus.SUCCESS)){
 			status = ResponseStatus.SUCCESS;
 		}
 	} 

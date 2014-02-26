@@ -15,7 +15,7 @@
 
 	<mapping>
 		<class-a>com.udm.health.domain.ws.CreateUserRequest</class-a>
-		<class-b>com.udm.health.domain.hibernate.User</class-b>
+		<class-b>com.udm.health.domain.internal.User</class-b>
 		<field>
 			<a>firstName</a>
 			<b>firstName</b>
@@ -47,6 +47,14 @@
 		<field>
 			<a>zipCode</a>
 			<b>zipCode</b>
+		</field>
+		<field>
+			<a>dateOfBirth</a>
+			<b>dateOfBirth</b>
+		</field>
+		<field>
+			<a>password</a>
+			<b>password</b>
 		</field>
 	</mapping>
 

@@ -14,7 +14,7 @@ public class CreateUserRequestValidator extends AbstractValidator<CreateUserRequ
 	public ValidationResults validate(CreateUserRequest object) {
 		ValidationHelper validationHelper = new ValidationHelper();
 		
-		validationHelper.notNull("email", object.getEmail());
+		validationHelper.notBlank("email", object.getEmail());
 		
 		return validationHelper.getValidationResults();
 	}

@@ -4,7 +4,7 @@ public enum ResponseStatus {
 
 	
 	INVALID_LOGIN("0", "Invalid login."),
-	SUCCESS("1", "Success"),
+	SUCCESS("SUCCESS", "Success"),
 	INVALID_BRAND("2","Invalid Brand"),
 	INVALID_SOURCE("3","Invalid Source"),
 	FAILURE("4", "Unknown error.");

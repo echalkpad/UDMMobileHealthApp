@@ -58,9 +58,12 @@
 	<bean id="udmRequestProcessor" class="com.udm.health.processor.UDMRequestProcessor">
 		<property name="processorMap">
 			<map>
-				<entry key="com.udm.health.domain.hibernate.User">
+				<entry key="com.udm.health.domain.internal.User">
 					<bean class="com.udm.health.processor.CreateUserProcessor" />					
 				</entry>
+				<entry key="com.udm.health.domain.ws.LoginRequest">
+					<bean class="com.udm.health.processor.LoginProcessor" />					
+				</entry>				
 			</map>
 		</property>
 	</bean>
@@ -77,6 +80,7 @@
 		<property name="adapters">
 			<!-- IMPORTANT: Order most to least specific. -->
 			<list>
+				<bean class="com.udm.health.response.LoginValidationAdapter" />
 				<bean class="com.udm.health.response.CreateUserValidationAdapter" />
 				<bean class="com.udm.health.response.GenericValidationAdapter" />
 				<bean class="com.udm.health.response.AuthenticationExceptionAdapter" />
