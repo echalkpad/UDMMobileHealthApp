@@ -50,19 +50,19 @@
 		</xsd:complexType>
 	</xsd:element>
 	
-	<xsd:element name="sendBloodPreasureMeasurementRequest">
+	<xsd:element name="sendBloodPressureMeasurementRequest">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="userId" type="xsd:string" />
-				<xsd:element name="measurementDate" type="xsd:date" />
-				<xsd:element name="measurementTime" type="xsd:time" />
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="measurementDate" type="xsd:string" />
+				<xsd:element name="measurementTime" type="xsd:string" />
 				<xsd:element name="systolic" type="xsd:string" />
 				<xsd:element name="diastolic" type="xsd:string" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	
-	<xsd:element name="sendBloodPreasureMeasurementResponse">
+	<xsd:element name="sendBloodPressureMeasurementResponse">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="responseHeader" type="tns:responseHeaderType" nillable="false" />

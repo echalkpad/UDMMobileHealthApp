@@ -32,6 +32,7 @@
 	      <props>
 	        <prop key="createUser">http://www.udm.com/CreateUserRequest</prop>
 	         <prop key="login">http://www.udm.com/LoginRequest</prop>
+	         <prop key="sendBloodPressureMeasurement">http://www.udm.com/SendBloodPressureMeasurement</prop>
 	      </props>
 	    </property>  
 	</bean>

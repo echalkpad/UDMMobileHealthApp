@@ -3,9 +3,9 @@ package com.udm.health.response;
 public enum ResponseStatus {
 
 	
-	INVALID_LOGIN("0", "Invalid login."),
+	INVALID_LOGIN("INVALID_LOGIN", "Invalid login."),
 	SUCCESS("SUCCESS", "Success"),
-	INVALID_BRAND("2","Invalid Brand"),
+	INVALID_BRAND("INVALID BRAND","Invalid Brand"),
 	INVALID_SOURCE("3","Invalid Source"),
 	FAILURE("4", "Unknown error.");
 	

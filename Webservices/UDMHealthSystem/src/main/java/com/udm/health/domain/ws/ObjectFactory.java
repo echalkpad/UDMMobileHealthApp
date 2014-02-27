@@ -77,19 +77,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SendBloodPreasureMeasurementRequest }
+     * Create an instance of {@link SendBloodPressureMeasurementRequest }
      * 
      */
-    public SendBloodPreasureMeasurementRequest createSendBloodPreasureMeasurementRequest() {
-        return new SendBloodPreasureMeasurementRequest();
+    public SendBloodPressureMeasurementRequest createSendBloodPreasureMeasurementRequest() {
+        return new SendBloodPressureMeasurementRequest();
     }
 
     /**
-     * Create an instance of {@link SendBloodPreasureMeasurementResponse }
+     * Create an instance of {@link SendBloodPressureMeasurementResponse }
      * 
      */
-    public SendBloodPreasureMeasurementResponse createSendBloodPreasureMeasurementResponse() {
-        return new SendBloodPreasureMeasurementResponse();
+    public SendBloodPressureMeasurementResponse createSendBloodPreasureMeasurementResponse() {
+        return new SendBloodPressureMeasurementResponse();
     }
 
     /**

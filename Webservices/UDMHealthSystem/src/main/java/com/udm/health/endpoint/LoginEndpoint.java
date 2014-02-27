@@ -22,7 +22,7 @@ public class LoginEndpoint extends BaseEndpoint<LoginRequest,LoginResponse>{
 	}
 	
 	
-	
+	@Override
 	protected Object processRequest(LoginRequest request) {
 		return process(request);
 	}
