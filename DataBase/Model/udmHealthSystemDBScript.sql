@@ -7,20 +7,6 @@ CREATE SCHEMA IF NOT EXISTS `udmhealthsystem` DEFAULT CHARACTER SET utf8 COLLATE
 USE `udmhealthsystem` ;
 
 -- -----------------------------------------------------
--- Table `udmhealthsystem`.`State`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `udmhealthsystem`.`State` ;
-
-CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`State` (
-  `idState` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `stateCode` VARCHAR(2) NULL,
-  PRIMARY KEY (`idState`),
-  UNIQUE INDEX `stateCode_UNIQUE` (`stateCode` ASC))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `udmhealthsystem`.`Physician`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `udmhealthsystem`.`Physician` ;
@@ -35,13 +21,7 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`Physician` (
   `email` VARCHAR(45) NULL,
   `zip` VARCHAR(5) NULL,
   `idState` INT NOT NULL,
-  PRIMARY KEY (`idPhysician`),
-  INDEX `fk_Physician_State1_idx` (`idState` ASC),
-  CONSTRAINT `fk_Physician_State1`
-    FOREIGN KEY (`idState`)
-    REFERENCES `udmhealthsystem`.`State` (`idState`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`idPhysician`))
 ENGINE = InnoDB;
 
 
@@ -54,23 +34,19 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`User` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NULL,
   `lastName` VARCHAR(45) NULL,
-  `dob` DATE NULL,
+  `dob` VARCHAR(25) NULL,
   `email` VARCHAR(45) NULL,
   `phoneNumber` VARCHAR(45) NULL,
   `ssn` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `zipCode` VARCHAR(5) NULL,
+  `password` VARCHAR(45) NULL,
+  `state` VARCHAR(45) NULL,
   `idState` INT NULL,
   `idPhysician` INT NULL,
   PRIMARY KEY (`idUser`),
-  INDEX `fk_User_State_idx` (`idState` ASC),
   INDEX `fk_User_Physician1_idx` (`idPhysician` ASC),
-  CONSTRAINT `fk_User_State`
-    FOREIGN KEY (`idState`)
-    REFERENCES `udmhealthsystem`.`State` (`idState`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_User_Physician1`
     FOREIGN KEY (`idPhysician`)
     REFERENCES `udmhealthsystem`.`Physician` (`idPhysician`)
@@ -282,18 +258,6 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `udmhealthsystem`.`State`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `udmhealthsystem`;
-INSERT INTO `udmhealthsystem`.`State` (`idState`, `name`, `stateCode`) VALUES (1, 'Michigan', 'MI');
-INSERT INTO `udmhealthsystem`.`State` (`idState`, `name`, `stateCode`) VALUES (2, 'California', 'CA');
-INSERT INTO `udmhealthsystem`.`State` (`idState`, `name`, `stateCode`) VALUES (3, 'Florida', 'FL');
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `udmhealthsystem`.`Scale`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -324,8 +288,8 @@ START TRANSACTION;
 USE `udmhealthsystem`;
 INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (1, 'TEMPERATURE', 'Temperature', 2);
 INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (2, 'TEMPERATURE', 'Temperature', 3);
-INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (3, 'Systolic', 'Systolic', 1);
-INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (4, 'Diastolic', 'Diastolic', 2);
+INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (3, 'SYSTOLIC', 'Systolic', 1);
+INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (4, 'DIASTOLIC', 'Diastolic', 2);
 
 COMMIT;
 
@@ -360,6 +324,8 @@ COMMIT;
 START TRANSACTION;
 USE `udmhealthsystem`;
 INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (1, 'CREATE_USER_REQUEST', 'Create user web service', true, true);
+INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (2, 'LOGIN_USER', 'Validates email and password', true, true);
+INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (3, 'SEND_BLOOD_PRESSURE', 'Send Blood Pressure measument', true, true);
 
 COMMIT;
 
