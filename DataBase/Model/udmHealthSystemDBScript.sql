@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`Measurement_Type` (
   `code` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NULL,
   `Scale_idScale` INT NOT NULL,
-  PRIMARY KEY (`idMeasurementType`),
+  PRIMARY KEY (`idMeasurementType`, `Scale_idScale`),
   INDEX `fk_Measurement_Type_Scale1_idx` (`Scale_idScale` ASC),
   CONSTRAINT `fk_Measurement_Type_Scale1`
     FOREIGN KEY (`Scale_idScale`)
@@ -95,11 +95,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `udmhealthsystem`.`Measurement_Attribute` ;
 
 CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`Measurement_Attribute` (
-  `idMeasurement` INT NOT NULL AUTO_INCREMENT,
+  `idMeasurementAttribute` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NULL,
   `idMeasurementType` INT NOT NULL,
-  PRIMARY KEY (`idMeasurement`),
+  PRIMARY KEY (`idMeasurementAttribute`),
   INDEX `fk_MeasurementAttribute_MeasurementType1_idx` (`idMeasurementType` ASC),
   CONSTRAINT `fk_MeasurementAttribute_MeasurementType1`
     FOREIGN KEY (`idMeasurementType`)
@@ -116,7 +116,7 @@ DROP TABLE IF EXISTS `udmhealthsystem`.`User_Measurement` ;
 
 CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`User_Measurement` (
   `idUserMeasurement` INT NOT NULL AUTO_INCREMENT,
-  `date` DATETIME NOT NULL,
+  `date` DATE NOT NULL,
   `idUser` INT NOT NULL,
   `idMeasurementType` INT NOT NULL,
   PRIMARY KEY (`idUserMeasurement`),
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`User_Measurement_Attribute` (
   INDEX `fk_MeasurementAttribute_UserMeasurement1_idx` (`idUserMeasurement` ASC),
   CONSTRAINT `fk_Measurement_MeasurementAttribute1`
     FOREIGN KEY (`idMeasurementAttribute`)
-    REFERENCES `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`)
+    REFERENCES `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_MeasurementAttribute_UserMeasurement1`
@@ -265,6 +265,7 @@ USE `udmhealthsystem`;
 INSERT INTO `udmhealthsystem`.`Scale` (`idScale`, `name`, `symbol`, `description`) VALUES (1, 'Fahrenheit', '°F', 'Fahrenheit');
 INSERT INTO `udmhealthsystem`.`Scale` (`idScale`, `name`, `symbol`, `description`) VALUES (2, 'Celsius', '°C', 'Celsius');
 INSERT INTO `udmhealthsystem`.`Scale` (`idScale`, `name`, `symbol`, `description`) VALUES (3, 'Millimeter of mercury', ' MmHg', 'Millimeter of mercury');
+INSERT INTO `udmhealthsystem`.`Scale` (`idScale`, `name`, `symbol`, `description`) VALUES (4, 'Molar Concentration', 'mg/dL', ' mass concentration is measured in mg/dL');
 
 COMMIT;
 
@@ -275,8 +276,9 @@ COMMIT;
 START TRANSACTION;
 USE `udmhealthsystem`;
 INSERT INTO `udmhealthsystem`.`Measurement_Type` (`idMeasurementType`, `code`, `description`, `Scale_idScale`) VALUES (1, 'BLOOD_PRESSURE', 'Blood pressure', 3);
-INSERT INTO `udmhealthsystem`.`Measurement_Type` (`idMeasurementType`, `code`, `description`, `Scale_idScale`) VALUES (2, 'TEMPERATURE_FAHRENHEIT', 'Temperature in Fahrenheit', 1);
-INSERT INTO `udmhealthsystem`.`Measurement_Type` (`idMeasurementType`, `code`, `description`, `Scale_idScale`) VALUES (3, 'TEMPERATURE_CELSIUS', 'Temperature in Celsius', 2);
+INSERT INTO `udmhealthsystem`.`Measurement_Type` (`idMeasurementType`, `code`, `description`, `Scale_idScale`) VALUES (2, 'FAHRENHEIT', 'Temperature in Fahrenheit', 1);
+INSERT INTO `udmhealthsystem`.`Measurement_Type` (`idMeasurementType`, `code`, `description`, `Scale_idScale`) VALUES (3, 'CELSIUS', 'Temperature in Celsius', 2);
+INSERT INTO `udmhealthsystem`.`Measurement_Type` (`idMeasurementType`, `code`, `description`, `Scale_idScale`) VALUES (4, 'BLOOD_SUGAR', 'blood sugar concentration', 4);
 
 COMMIT;
 
@@ -286,10 +288,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `udmhealthsystem`;
-INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (1, 'TEMPERATURE', 'Temperature', 2);
-INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (2, 'TEMPERATURE', 'Temperature', 3);
-INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (3, 'SYSTOLIC', 'Systolic', 1);
-INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurement`, `name`, `description`, `idMeasurementType`) VALUES (4, 'DIASTOLIC', 'Diastolic', 2);
+INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`, `name`, `description`, `idMeasurementType`) VALUES (1, 'FAHRENHEIT', 'Temperature', 2);
+INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`, `name`, `description`, `idMeasurementType`) VALUES (2, 'CELSIUS', 'Temperature', 3);
+INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`, `name`, `description`, `idMeasurementType`) VALUES (3, 'SYSTOLIC', 'Systolic', 1);
+INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`, `name`, `description`, `idMeasurementType`) VALUES (4, 'DIASTOLIC', 'Diastolic', 1);
+INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`, `name`, `description`, `idMeasurementType`) VALUES (5, 'BLOOD_SUGAR', 'The blood sugar concentration', 4);
 
 COMMIT;
 
@@ -326,6 +329,8 @@ USE `udmhealthsystem`;
 INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (1, 'CREATE_USER_REQUEST', 'Create user web service', true, true);
 INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (2, 'LOGIN_USER', 'Validates email and password', true, true);
 INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (3, 'SEND_BLOOD_PRESSURE', 'Send Blood Pressure measument', true, true);
+INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (4, 'TEMPERATURE_MEASUREMENT', 'Body Temperature', true, true);
+INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (5, 'BLOOD_SUGAR_MEASUREMENT', 'Blood Sugar Level', true, true);
 
 COMMIT;
 
