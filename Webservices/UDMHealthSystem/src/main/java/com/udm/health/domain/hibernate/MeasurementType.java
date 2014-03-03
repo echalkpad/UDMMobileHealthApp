@@ -15,7 +15,7 @@ public class MeasurementType {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="idUserMeasurement")
+	@Column(name="idMeasurementType")
 	private Long id;
 	
 	@Column(name="code")

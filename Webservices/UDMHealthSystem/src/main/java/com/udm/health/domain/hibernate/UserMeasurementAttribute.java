@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="request_logs")
+@Table(name="user_measurement_attribute")
 public class UserMeasurementAttribute {
 
 	@Id
@@ -27,7 +27,7 @@ public class UserMeasurementAttribute {
 	
 	@ManyToOne
 	@JoinColumn(name="idUserMeasurement")
-	private UserMeasument userMeasument;
+	private UserMeasurement userMeasument;
 
 	public Long getId() {
 		return id;
@@ -53,11 +53,11 @@ public class UserMeasurementAttribute {
 		this.measurementAttribute = measurementAttribute;
 	}
 
-	public UserMeasument getUserMeasument() {
+	public UserMeasurement getUserMeasument() {
 		return userMeasument;
 	}
 
-	public void setUserMeasument(UserMeasument userMeasument) {
+	public void setUserMeasument(UserMeasurement userMeasument) {
 		this.userMeasument = userMeasument;
 	}
 }

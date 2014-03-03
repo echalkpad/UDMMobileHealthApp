@@ -1,5 +1,7 @@
 package com.udm.health.domain.hibernate;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,18 +12,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="measurement_attribute")
-public class MeasurementAttribute {
+@Table(name="user_measurement")
+public class UserMeasurement {
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="idMeasurementAttribute")
+	@Column(name="idUserMeasurement")
 	private Long id;
 	
-	@Column(name="name")
-	private String name;
+	@Column(name="date")
+	private Date date;
 	
-	@Column(name="description")
-	private String description;
+	@ManyToOne
+	@JoinColumn(name="idUser")
+	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="idMeasurementType")
@@ -35,20 +39,20 @@ public class MeasurementAttribute {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public String getDescription() {
-		return description;
+	public User getUser() {
+		return user;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public MeasurementType getMeasurementType() {
@@ -58,4 +62,5 @@ public class MeasurementAttribute {
 	public void setMeasurementType(MeasurementType measurementType) {
 		this.measurementType = measurementType;
 	}
+	
 }

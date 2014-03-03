@@ -67,6 +67,12 @@
 				<entry key="com.udm.health.domain.ws.SendBloodPressureMeasurementRequest">
 					<bean class="com.udm.health.processor.SendBloodPreasureMeasurementProcessor" />					
 				</entry>		
+				<entry key="com.udm.health.domain.ws.TemperatureMeasurementRequest">
+					<bean class="com.udm.health.processor.TemperatureMeasurementProcessor" />					
+				</entry>
+				<entry key="com.udm.health.domain.ws.BloodSugarMeasurementRequest">
+					<bean class="com.udm.health.processor.BloodSugarMeasurementProcessor" />					
+				</entry>
 			</map>
 		</property>
 	</bean>
@@ -74,6 +80,8 @@
 	<bean id="validator" class="com.udm.health.validation.Validator">
 		<property name="validators">
 			<list>
+				<bean class="com.udm.health.validation.validator.BloodSugarMeasurementValidator" />
+				<bean class="com.udm.health.validation.validator.TemperatureMeasurementValidator" />
 				<bean class="com.udm.health.validation.validator.SendBloodPressureMeasurementValidator" />
 				<bean class="com.udm.health.validation.validator.LoginValidator" />
 				<bean class="com.udm.health.validation.validator.CreateUserRequestValidator" />
@@ -85,6 +93,9 @@
 		<property name="adapters">
 			<!-- IMPORTANT: Order most to least specific. -->
 			<list>
+				<bean class="com.udm.health.response.TemperatureMeasurementAdapter" />
+				<bean class="com.udm.health.response.BloodSugarMeasurementAdapter" />
+				<bean class="com.udm.health.response.SendBloodPressureMeasurementValidationAdapter" />
 				<bean class="com.udm.health.response.LoginValidationAdapter" />
 				<bean class="com.udm.health.response.CreateUserValidationAdapter" />
 				<bean class="com.udm.health.response.GenericValidationAdapter" />
