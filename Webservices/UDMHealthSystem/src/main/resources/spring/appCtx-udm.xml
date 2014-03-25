@@ -18,7 +18,30 @@
 	<bean id="springContextHolder" class="com.udm.health.spring.SpringContextHolder" />
 	
 	<bean id="openSessionInView" class="org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter" />
-
+	
+	<sec:http use-expressions="true">
+		<sec:intercept-url pattern="/admin/login" access="permitAll" />
+		<sec:intercept-url pattern="/admin/users" access="hasRole('ADMIN')" />
+		<sec:intercept-url pattern="/admin/logs" access="hasRole('ADMIN')" />
+		<sec:intercept-url pattern="/admin/loginfailed" access="permitAll" />
+		<sec:intercept-url pattern="/admin/patients" access="hasRole('DOCTOR')" />
+		<sec:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<sec:form-login login-page="/admin/login" default-target-url="/admin" authentication-failure-url="/admin/loginfailed" />
+		<sec:logout logout-success-url="/admin" />
+	</sec:http>
+	
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
+	
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider>
+			<sec:password-encoder ref="passwordEncoder" />
+			<sec:jdbc-user-service data-source-ref="UDMDataSource"
+				users-by-username-query="select username,password,enabled from web_users where username=?"
+				authorities-by-username-query="select ua.username,a.authority from user_authorities ua, authorities a where ua.authority_pk = a.authority_pk and ua.username=?"
+			/>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+	
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 		<property name="dataSource" ref="UDMDataSource" />
@@ -28,11 +51,10 @@
     	<property name="contextPath" value="com.udm.health.domain.ws" />
     </bean>
 	
-	<sec:global-method-security secured-annotations="enabled" />
 
-	<sec:authentication-manager>
-		<sec:authentication-provider ref="daoAuthenticationProvider" />
-	</sec:authentication-manager>
+<!-- 	<sec:authentication-manager> -->
+<!-- 		<sec:authentication-provider ref="daoAuthenticationProvider" /> -->
+<!-- 	</sec:authentication-manager> -->
     
 	<!--
     <bean id="webServiceAuthenticationManager" class="org.springframework.security.authentication.ProviderManager">
@@ -43,13 +65,13 @@
 	  </property>
 	</bean>
 	-->
-    <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-	  <property name="userDetailsService" ref="inMemoryDaoImpl"/>
-	</bean>
+<!--     <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider"> -->
+<!-- 	  <property name="userDetailsService" ref="inMemoryDaoImpl"/> -->
+<!-- 	</bean> -->
 	
-	<sec:user-service id="inMemoryDaoImpl">
-	    <sec:user name="pfizer" password="7xWFUAv5" authorities="ROLE_USER" />
-	</sec:user-service>
+<!-- 	<sec:user-service id="inMemoryDaoImpl"> -->
+<!-- 	    <sec:user name="pfizer" password="7xWFUAv5" authorities="ROLE_USER" /> -->
+<!-- 	</sec:user-service> -->
 	
 <!-- 	<bean id="wcsStoredProcedureDao" class="com.udm.health.dao.WcsStoredProcedureDao"> -->
 <!-- 		<property name="dataSource" ref="wcsDataSource" /> -->

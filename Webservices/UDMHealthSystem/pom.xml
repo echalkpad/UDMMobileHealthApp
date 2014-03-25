@@ -352,7 +352,7 @@
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
 						<manifestEntries>
-							<Dependencies>org.jboss.ironjacamar.jdbcadapters,com.oracle</Dependencies>
+							<Dependencies>org.jboss.ironjacamar.jdbcadapters</Dependencies>
 						</manifestEntries>
 					</archive>
 				</configuration>

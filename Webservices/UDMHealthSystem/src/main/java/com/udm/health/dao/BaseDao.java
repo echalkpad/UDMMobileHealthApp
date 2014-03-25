@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.udm.health.domain.hibernate.RequestLog;
+import com.udm.health.domain.internal.SortOrder;
 
 public abstract class BaseDao<T,K> {
 
@@ -52,6 +53,12 @@ public abstract class BaseDao<T,K> {
 		return query.getResultList();
 	}
 
+	public List<RequestLog> findAll(int start, int pageSize, String sortField, SortOrder sortOrder) {
+		TypedQuery<RequestLog> query = entityManager.createQuery(String.format("select e from %s e order by e.%s %s", entityClass.getSimpleName(), sortField, sortOrder.toString()), RequestLog.class);
+		query.setFirstResult(start);
+		query.setMaxResults(pageSize);
+		return query.getResultList();
+	}
 	
 	public List<RequestLog> find(String requestLogQuery, int start, int pageSize) {
 		TypedQuery<RequestLog> query = entityManager.createQuery(requestLogQuery, RequestLog.class);
@@ -59,6 +66,7 @@ public abstract class BaseDao<T,K> {
 		query.setMaxResults(pageSize);
 		return query.getResultList();
 	}
+	
 	
 	@Transactional
 	public void delete(T entity) {

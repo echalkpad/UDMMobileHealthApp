@@ -11,6 +11,7 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.xml.transform.TransformerObjectSupport;
 import com.udm.health.dao.RequestLogDao;
 import com.udm.health.domain.hibernate.RequestLog;
 import com.udm.health.domain.internal.Service;
+import com.udm.health.domain.internal.SortOrder;
 import com.udm.health.domain.ws.HasResponseHeader;
 import com.udm.health.domain.ws.Message;
 
@@ -35,6 +37,8 @@ public class RequestLogService extends TransformerObjectSupport {
 	private RequestLogDao requestLogDao;
 	@Autowired
 	private ServiceService serviceService;
+	private static String SELECT_QUERY = "select e from RequestLog e";
+	private static String SELECT_COUNT = "select count(*) from RequestLog e";
 		
 	public List<RequestLog> findAll() {
 		return requestLogDao.findAll();
@@ -44,12 +48,69 @@ public class RequestLogService extends TransformerObjectSupport {
 		return requestLogDao.findAll(start, pageSize);
 	}
 	
+	public List<RequestLog> findAll(int start, int pageSize, String sort, SortOrder sortOrder) {
+		return requestLogDao.findAll(start, pageSize, sort, sortOrder);
+	}
+	
 	public RequestLog findById(Long id) {
 		return requestLogDao.findById(id);
 	}
 	
 	public long recordCount() {
 		return requestLogDao.recordCount();
+	}
+	
+	public long recordCount(String service, String status, String fromDate, String toDate) {
+		StringBuilder query = new StringBuilder(SELECT_COUNT);
+		createWhereClause(service, status, "", null, fromDate, toDate, query);
+		return requestLogDao.recordCount(query.toString());
+	}
+	
+	
+	public List<RequestLog> findLogsByFilters(int start, int pageSize, String service, String status, String sort, String sortOrder, String fromDate, String toDate) {
+		List<RequestLog> list = null;
+		String query=createRequestLogQuery(service, status, sort, sortOrder, fromDate, toDate);
+		logger.debug("Executing Query: "+query);
+		list = requestLogDao.findRequestLogs(query, start, pageSize);
+		return list;
+	}
+
+	public String createRequestLogQuery(String service, String status, String sort, String sortOrder, String fromDate, String toDate) {
+		StringBuilder query = new StringBuilder(SELECT_QUERY);
+		createWhereClause(service, status, sort, sortOrder, fromDate, toDate, query);
+		return query.toString();
+	}
+
+	private void createWhereClause(String service, String status, String sort, String sortOrder, String fromDate, String toDate, StringBuilder query) {
+		if(StringUtils.isNotBlank(service) || StringUtils.isNotBlank(status) || StringUtils.isNotBlank(fromDate) || StringUtils.isNotBlank(toDate) ){
+			query.append(" where");
+			if(StringUtils.isNotBlank(service)){
+				query.append(String.format(" e.serviceName = '%s'",service));
+				if(StringUtils.isNotBlank(status) || StringUtils.isNotBlank(fromDate) || StringUtils.isNotBlank(toDate)){
+					query.append(" and");
+				}
+			}
+			if(StringUtils.isNotBlank(status)){
+				query.append(String.format(" e.responseCode = '%s'",status));
+				if(StringUtils.isNotBlank(fromDate) || StringUtils.isNotBlank(toDate)){
+					query.append(" and");
+				}
+			}
+			if(StringUtils.isNotBlank(fromDate)){
+				query.append(String.format(" e.createDate >= '%s'",fromDate));
+				if(StringUtils.isNotBlank(toDate)){
+					query.append(" and");
+				}
+			}
+			if(StringUtils.isNotBlank(toDate)){
+				query.append(String.format(" e.createDate <= '%s'",toDate));
+			}				
+		}
+		if (StringUtils.isNotBlank(sort)) {
+			query.append(String.format(" order by e.%s %s", sort, SortOrder.fromString(sortOrder).toString()));
+		}else if(StringUtils.isBlank(sort)){
+			query.append(" order by e.createDate DESC");
+		}
 	}
 	
 	
