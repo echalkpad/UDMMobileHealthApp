@@ -253,6 +253,52 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`services` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `udmhealthsystem`.`authorities`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `udmhealthsystem`.`authorities` ;
+
+CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`authorities` (
+  `authority_pk` INT NOT NULL AUTO_INCREMENT,
+  `authority` VARCHAR(45) NOT NULL,
+  `Description` VARCHAR(45) NULL,
+  PRIMARY KEY (`authority_pk`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `udmhealthsystem`.`web_users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `udmhealthsystem`.`web_users` ;
+
+CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`web_users` (
+  `web_user_pk` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(255) NULL,
+  `enabled` VARCHAR(45) NULL,
+  PRIMARY KEY (`web_user_pk`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `udmhealthsystem`.`user_authorities`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `udmhealthsystem`.`user_authorities` ;
+
+CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`user_authorities` (
+  `user_authority_pk` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `authority_pk` INT NOT NULL,
+  PRIMARY KEY (`user_authority_pk`),
+  INDEX `fk_user_authorities_Authority1_idx` (`authority_pk` ASC),
+  CONSTRAINT `fk_user_authorities_Authority1`
+    FOREIGN KEY (`authority_pk`)
+    REFERENCES `udmhealthsystem`.`authorities` (`authority_pk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -331,6 +377,40 @@ INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `descrip
 INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (3, 'SEND_BLOOD_PRESSURE', 'Send Blood Pressure measument', true, true);
 INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (4, 'TEMPERATURE_MEASUREMENT', 'Body Temperature', true, true);
 INSERT INTO `udmhealthsystem`.`services` (`id_service`, `service_name`, `description`, `enabled`, `logging`) VALUES (5, 'BLOOD_SUGAR_MEASUREMENT', 'Blood Sugar Level', true, true);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `udmhealthsystem`.`authorities`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `udmhealthsystem`;
+INSERT INTO `udmhealthsystem`.`authorities` (`authority_pk`, `authority`, `Description`) VALUES (1, 'DOCTOR', 'Doctor Authority');
+INSERT INTO `udmhealthsystem`.`authorities` (`authority_pk`, `authority`, `Description`) VALUES (2, 'NURSE', 'Nurse Authority');
+INSERT INTO `udmhealthsystem`.`authorities` (`authority_pk`, `authority`, `Description`) VALUES (3, 'ADMIN', 'Sytem Administrator');
+INSERT INTO `udmhealthsystem`.`authorities` (`authority_pk`, `authority`, `Description`) VALUES (NULL, 'VIEW_LOG_XML', 'Admin');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `udmhealthsystem`.`web_users`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `udmhealthsystem`;
+INSERT INTO `udmhealthsystem`.`web_users` (`web_user_pk`, `username`, `password`, `enabled`) VALUES (1, 'oscar', 'oscar', 'true');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `udmhealthsystem`.`user_authorities`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `udmhealthsystem`;
+INSERT INTO `udmhealthsystem`.`user_authorities` (`user_authority_pk`, `username`, `authority_pk`) VALUES (1, 'oscar', 1);
+INSERT INTO `udmhealthsystem`.`user_authorities` (`user_authority_pk`, `username`, `authority_pk`) VALUES (2, 'oscar', 3);
 
 COMMIT;
 
