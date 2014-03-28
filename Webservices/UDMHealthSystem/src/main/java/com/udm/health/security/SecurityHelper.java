@@ -47,6 +47,16 @@ public class SecurityHelper {
 		return false;
 	}
 
+	public String getUserName(){
+		String user = null;
+		Authentication auth = getAuthentication();
+
+		if ((auth != null) && (auth.getPrincipal() != null)) {
+			user = auth.getName();
+		}
+		
+		return user;
+	}
 	private Authentication getAuthentication() {
 		Authentication auth = getSecurityContext().getAuthentication();
 

@@ -25,9 +25,11 @@ $(function() {
 			<h1 id="bannerTitle">UDM Health System</h1>
 			<sec:authorize access="isAuthenticated()">
 				<ul>
+					<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin">Personal Information</a></li>
 					<sec:authorize access="hasRole('ADMIN')">
 						<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin/users">Web Users</a></li>
 						<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin/logs">Logs</a></li>
+						<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin/patients">Patients</a></li>
 					</sec:authorize>
 				</ul>
 				<div class="right">

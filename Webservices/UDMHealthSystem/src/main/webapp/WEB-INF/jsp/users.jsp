@@ -5,7 +5,7 @@
 
 <html>
 	<head>
-		<title>UDM Health System Web Admin -- Web Users</title>
+		<title>Web Users</title>
 		
 		<script type="text/javascript" src="<c:url value="/resources/js/utils.js" />"></script>
 		
