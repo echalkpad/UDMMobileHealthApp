@@ -7,25 +7,6 @@ CREATE SCHEMA IF NOT EXISTS `udmhealthsystem` DEFAULT CHARACTER SET utf8 COLLATE
 USE `udmhealthsystem` ;
 
 -- -----------------------------------------------------
--- Table `udmhealthsystem`.`Physician`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `udmhealthsystem`.`Physician` ;
-
-CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`Physician` (
-  `idPhysician` INT NOT NULL AUTO_INCREMENT,
-  `firstName` VARCHAR(45) NULL,
-  `lastName` VARCHAR(45) NULL,
-  `street` VARCHAR(45) NULL,
-  `city` VARCHAR(45) NULL,
-  `phoneNumber` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  `zip` VARCHAR(5) NULL,
-  `idState` INT NOT NULL,
-  PRIMARY KEY (`idPhysician`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `udmhealthsystem`.`User`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `udmhealthsystem`.`User` ;
@@ -43,16 +24,9 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`User` (
   `zipCode` VARCHAR(5) NULL,
   `password` VARCHAR(45) NULL,
   `state` VARCHAR(45) NULL,
-  `idState` INT NULL,
-  `idPhysician` INT NULL,
-  PRIMARY KEY (`idUser`),
-  INDEX `fk_User_Physician1_idx` (`idPhysician` ASC),
-  CONSTRAINT `fk_User_Physician1`
-    FOREIGN KEY (`idPhysician`)
-    REFERENCES `udmhealthsystem`.`Physician` (`idPhysician`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  PRIMARY KEY (`idUser`))
+ENGINE = InnoDB
+COMMENT = '	';
 
 
 -- -----------------------------------------------------
@@ -156,6 +130,25 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`User_Measurement_Attribute` (
   CONSTRAINT `fk_MeasurementAttribute_UserMeasurement1`
     FOREIGN KEY (`idUserMeasurement`)
     REFERENCES `udmhealthsystem`.`User_Measurement` (`idUserMeasurement`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `udmhealthsystem`.`medical_staff`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `udmhealthsystem`.`medical_staff` ;
+
+CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`medical_staff` (
+  `medical_staff_pk` INT NOT NULL AUTO_INCREMENT,
+  `speciality` VARCHAR(45) NOT NULL,
+  `idUser` INT NOT NULL,
+  PRIMARY KEY (`medical_staff_pk`),
+  INDEX `fk_medical_staff_User1_idx` (`idUser` ASC),
+  CONSTRAINT `fk_medical_staff_User1`
+    FOREIGN KEY (`idUser`)
+    REFERENCES `udmhealthsystem`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -299,9 +292,46 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`user_authorities` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `udmhealthsystem`.`user_access`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `udmhealthsystem`.`user_access` ;
+
+CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`user_access` (
+  `user_access_pk` INT NOT NULL AUTO_INCREMENT,
+  `enabled` TINYINT(1) NOT NULL DEFAULT true,
+  `medical_staff_pk` INT NOT NULL,
+  `idUser` INT NOT NULL,
+  PRIMARY KEY (`user_access_pk`),
+  INDEX `fk_user_access_medical_staff1_idx` (`medical_staff_pk` ASC),
+  INDEX `fk_user_access_User1_idx` (`idUser` ASC),
+  CONSTRAINT `fk_user_access_medical_staff1`
+    FOREIGN KEY (`medical_staff_pk`)
+    REFERENCES `udmhealthsystem`.`medical_staff` (`medical_staff_pk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_access_User1`
+    FOREIGN KEY (`idUser`)
+    REFERENCES `udmhealthsystem`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `udmhealthsystem`.`User`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `udmhealthsystem`;
+INSERT INTO `udmhealthsystem`.`User` (`idUser`, `firstName`, `lastName`, `dob`, `email`, `phoneNumber`, `ssn`, `street`, `city`, `zipCode`, `password`, `state`) VALUES (1, 'Oscar', 'Martinez', '09/14/1984', 'oscar@gmail.com', '248-284-3694', '2336-36-3698', '1900 Brockton', 'Royal Oak', '48067', 'oscar', 'MI');
+INSERT INTO `udmhealthsystem`.`User` (`idUser`, `firstName`, `lastName`, `dob`, `email`, `phoneNumber`, `ssn`, `street`, `city`, `zipCode`, `password`, `state`) VALUES (2, 'Jose', 'Lopez', '02/11/1977', 'jose@jose.com', '248-248-2244', '233-55-5545', 'Calle 14', 'Troy', '46067', 'jose', 'MI');
+
+COMMIT;
+
 
 -- -----------------------------------------------------
 -- Data for table `udmhealthsystem`.`Scale`
@@ -339,6 +369,16 @@ INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`,
 INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`, `name`, `description`, `idMeasurementType`) VALUES (3, 'SYSTOLIC', 'Systolic', 1);
 INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`, `name`, `description`, `idMeasurementType`) VALUES (4, 'DIASTOLIC', 'Diastolic', 1);
 INSERT INTO `udmhealthsystem`.`Measurement_Attribute` (`idMeasurementAttribute`, `name`, `description`, `idMeasurementType`) VALUES (5, 'BLOOD_SUGAR', 'The blood sugar concentration', 4);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `udmhealthsystem`.`medical_staff`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `udmhealthsystem`;
+INSERT INTO `udmhealthsystem`.`medical_staff` (`medical_staff_pk`, `speciality`, `idUser`) VALUES (NULL, 'Doctor', 2);
 
 COMMIT;
 
@@ -399,7 +439,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `udmhealthsystem`;
-INSERT INTO `udmhealthsystem`.`web_users` (`web_user_pk`, `username`, `password`, `enabled`) VALUES (1, 'oscar', 'oscar', 'true');
+INSERT INTO `udmhealthsystem`.`web_users` (`web_user_pk`, `username`, `password`, `enabled`) VALUES (1, 'oscar@gmail.com', 'ff62e57bf729b39b0df7a5c28077838250ef0c01b0cf97c24833fc051f0c6761bd14ca9d5077034b', 'true');
+INSERT INTO `udmhealthsystem`.`web_users` (`web_user_pk`, `username`, `password`, `enabled`) VALUES (NULL, 'jose@jose', 'ff62e57bf729b39b0df7a5c28077838250ef0c01b0cf97c24833fc051f0c6761bd14ca9d5077034b', 'true');
 
 COMMIT;
 
@@ -409,8 +450,18 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `udmhealthsystem`;
-INSERT INTO `udmhealthsystem`.`user_authorities` (`user_authority_pk`, `username`, `authority_pk`) VALUES (1, 'oscar', 1);
-INSERT INTO `udmhealthsystem`.`user_authorities` (`user_authority_pk`, `username`, `authority_pk`) VALUES (2, 'oscar', 3);
+INSERT INTO `udmhealthsystem`.`user_authorities` (`user_authority_pk`, `username`, `authority_pk`) VALUES (1, 'oscar@gmail.com', 1);
+INSERT INTO `udmhealthsystem`.`user_authorities` (`user_authority_pk`, `username`, `authority_pk`) VALUES (2, 'oscar@gmail.com', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `udmhealthsystem`.`user_access`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `udmhealthsystem`;
+INSERT INTO `udmhealthsystem`.`user_access` (`user_access_pk`, `enabled`, `medical_staff_pk`, `idUser`) VALUES (NULL, true, 1, 1);
 
 COMMIT;
 
