@@ -38,6 +38,10 @@ public class WebUserService {
 		}
 	}
 	
+	public WebUser findByUserName(String name){
+		return webUserDao.findByUserName(name);
+	}
+	
 	public WebUser find(Long id) {
 		return webUserDao.findById(id);
 	}

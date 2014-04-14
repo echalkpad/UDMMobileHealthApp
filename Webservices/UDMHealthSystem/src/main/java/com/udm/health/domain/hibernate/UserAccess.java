@@ -29,6 +29,14 @@ public class UserAccess {
 	
 	@Column(name="enabled")
 	private Boolean enabled;
+	
+	public UserAccess(){}
+	
+	public UserAccess(User user, MedicalStaff medicalStaff){
+		this.user = user;
+		this.medicalStaff = medicalStaff;
+		this.enabled = true;
+	}
 
 
 	public Long getId() {

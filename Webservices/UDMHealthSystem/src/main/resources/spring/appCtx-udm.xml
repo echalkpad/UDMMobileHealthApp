@@ -21,11 +21,13 @@
 	
 	<sec:http use-expressions="true">
 		<sec:intercept-url pattern="/admin/login" access="permitAll" />
+		<sec:intercept-url pattern="/admin/loginfailed" access="permitAll" />
 		<sec:intercept-url pattern="/admin/users" access="hasRole('ADMIN')" />
 		<sec:intercept-url pattern="/admin/logs" access="hasRole('ADMIN')" />
-		<sec:intercept-url pattern="/admin/loginfailed" access="permitAll" />
-		<sec:intercept-url pattern="/admin/patients" access="hasRole('DOCTOR')" />
-		<sec:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<sec:intercept-url pattern="/admin/staff" access="hasAnyRole('ADMIN','VIEW_LOG_XML')" />
+		<sec:intercept-url pattern="/admin/patients" access="hasAnyRole('DOCTOR', 'NURSE')" />
+		<sec:intercept-url pattern="/admin/lookup" access="hasAnyRole('DOCTOR', 'NURSE')" />
+		<sec:intercept-url pattern="/admin/**" access="hasAnyRole('ADMIN','VIEW_LOG_XML','DOCTOR', 'NURSE')" />
 		<sec:form-login login-page="/admin/login" default-target-url="/admin" authentication-failure-url="/admin/loginfailed" />
 		<sec:logout logout-success-url="/admin" />
 	</sec:http>

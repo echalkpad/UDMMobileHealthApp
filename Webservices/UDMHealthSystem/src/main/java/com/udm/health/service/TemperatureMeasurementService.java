@@ -52,7 +52,7 @@ public class TemperatureMeasurementService {
 
 	private UserMeasurement saveUserMeasurement(TemperatureMeasurementRequest request) {
 		UserMeasurement userMeasurement = null;
-		User user = userDao.finUserByEmail(request.getEmail());
+		User user = userDao.findUserByEmail(request.getEmail());
 		if (user != null) {
 			userMeasurement = userMeasurementDao.saveUserMeasurement(user, request.getMeasurementDate(), request.getMeasurementTime(), getMeasurementType(request.getScale()));
 		}

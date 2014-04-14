@@ -3,7 +3,7 @@
 
 <html>
 	<head>
-		<title>BlsWs Web Admin -- Request Logs</title>
+		<title>Request Logs</title>
 		<link type="text/css" href="<c:url value="/resources/css/displayTagStyle.css"/>" rel="stylesheet" />	
 		<script type="text/javascript" src="<c:url value="/resources/js/picnet.table.filter.min.js" />"></script>
 <%-- 		<script type="text/javascript" src="<c:url value="/resources/js/jquery.zclip.min.js" />"></script> --%>

@@ -51,6 +51,17 @@ public class User {
 	@Enumerated(EnumType.STRING)
     @Column(name = "state", length = 45, nullable = false)
     private State state;
+	
+	@Column (name="userType")
+	private String userType;
+	
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 
 	public Long getIdUser() {
 		return idUser;

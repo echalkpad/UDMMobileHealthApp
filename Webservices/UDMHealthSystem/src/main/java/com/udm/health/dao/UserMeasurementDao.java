@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Component;
 
@@ -38,5 +41,21 @@ public class UserMeasurementDao extends BaseDao<UserMeasurement, Long>{
 		save(userMeasurement);
 		return userMeasurement;
 	}
+	
+	
+	public List<UserMeasurement> findUserMeasurementByEmail(String email){
+		TypedQuery<UserMeasurement> query = entityManager.createQuery("SELECT m FROM UserMeasurement m WHERE m.user.email = :email", UserMeasurement.class);
+		query.setParameter("email", email);
+		return query.getResultList();
+	}
+	
+	
+	public long recordCount(String email){
+		String query ="SELECT count(m) FROM UserMeasurement m WHERE m.user.email = '"+email+"'";
+		return super.recordCount(query);
+	}
+	
+	
+	
 	
 }

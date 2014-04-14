@@ -26,10 +26,14 @@ $(function() {
 			<sec:authorize access="isAuthenticated()">
 				<ul>
 					<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin">Personal Information</a></li>
-					<sec:authorize access="hasRole('ADMIN')">
+					<sec:authorize access="hasAnyRole('VIEW_LOG_XML', 'ADMIN')">
 						<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin/users">Web Users</a></li>
 						<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin/logs">Logs</a></li>
+						<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin/staff">Medical Staff</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasAnyRole('NURSE', 'DOCTOR')">
 						<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin/patients">Patients</a></li>
+						<li><a class="headerLink" href="${pageContext.servletContext.contextPath}/admin/lookup">Available Patients</a></li>
 					</sec:authorize>
 				</ul>
 				<div class="right">

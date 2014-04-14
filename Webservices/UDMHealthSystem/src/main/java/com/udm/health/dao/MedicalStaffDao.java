@@ -14,7 +14,7 @@ public class MedicalStaffDao extends BaseDao<MedicalStaff, Long>{
 		super(MedicalStaff.class);
 	}
 	
-	public MedicalStaff MedicalStaffByEmail(String email){
+	public MedicalStaff findByEmail(String email){
 		Query query = entityManager.createQuery("SELECT m FROM MedicalStaff m WHERE m.user.email = :email");
 		query.setParameter("email", email);
 		

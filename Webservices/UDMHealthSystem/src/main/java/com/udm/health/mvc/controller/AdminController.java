@@ -21,7 +21,7 @@ public class AdminController {
 	@RequestMapping(value="/admin", method = RequestMethod.GET)
 	public String login(ModelMap model) {
 		String userName = securityHelper.getUserName();
-		User user = userService.finUserByEmail(userName);
+		User user = userService.findUserByEmail(userName);
 		model.put("user", user);
 		return "admin";
 	}

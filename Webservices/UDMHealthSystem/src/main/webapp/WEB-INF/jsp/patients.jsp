@@ -19,6 +19,7 @@
 				$('.listtable').tableFilter(options);
 				$('table.listTable thead tr.filters td input#_filter_6.filter').hide();
 				$('#filterButton').button();
+				$('#dialog').dialog({ autoOpen: false, width: 800, modal: true });
 				$('#clearButton').button();
 				$('#cleanFilters').button({
 					text: false,
@@ -37,12 +38,12 @@
 				
 				// Send the filters to the controller
 				$('#filterButton').click(function(event) {
-					var serviceVal = $('#serviceListCombobox').val();
-					var statusVal  = $('#statusListCombobox').val();
-					var fromDate = $.datepicker.formatDate('dd-M-y', $( "#from" ).datepicker( 'getDate' ));
-					var toDate = $.datepicker.formatDate('dd-M-y', $( "#to" ).datepicker( 'getDate' ));
-					var parameters = '?service='+serviceVal+'&status='+statusVal+'&fromDate='+fromDate+'&toDate='+toDate;
-					window.location.href = contextPath + '/admin/logs' + parameters;
+					var firstName = $('#firstName').val();
+					var lastName  = $('#lastName').val();
+					var email = $('#email').val();
+					var state = $('#state').val();
+					var parameters = '?firstName='+firstName+'&lastName='+lastName+'&email='+email+'&state='+state;
+					window.location.href = contextPath + '/admin/patients' + parameters;
 				});
 				
 				//Reset filters.
@@ -64,11 +65,10 @@
 		});
 			
 		function displayDetails(id) {
-			$.get("${pageContext.servletContext.contextPath}/admin/logs/" + type +"Xml/" + id,
+			$.get("${pageContext.servletContext.contextPath}/admin/patients/" + id,
 					function(data) {
-						var escapedData = data.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 						$('#dialog').empty();
-						$('#dialog').append('<pre>' + escapedData + '</pre>');					
+						$('#dialog').append('<pre>' + data + '</pre>');
 						$('#dialog').dialog('open');					
 			});
 		}
@@ -121,6 +121,7 @@
 			</div>
 		</div>
 		
-		<div id="dialog"></div>
+		<div id="dialog">
+		</div>
 	</body>
 </html>

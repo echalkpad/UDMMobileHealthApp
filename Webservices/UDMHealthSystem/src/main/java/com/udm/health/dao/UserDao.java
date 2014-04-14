@@ -1,7 +1,10 @@
 package com.udm.health.dao;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Component;
 
@@ -14,7 +17,7 @@ public class UserDao extends BaseDao<User, Long>{
 		super(User.class);
 	}
 
-	public User finUserByEmail(String email){
+	public User findUserByEmail(String email){
 		Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email");
 		query.setParameter("email", email);
 		
@@ -24,4 +27,11 @@ public class UserDao extends BaseDao<User, Long>{
 			return null;
 		}
 	}
+	
+	public List<User> findAllPatients(){
+		TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.userType = :userType", User.class);
+		query.setParameter("userType", "PATIENT");
+		return query.getResultList();
+	}
+	
 }
