@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`User` (
   `street` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `zipCode` VARCHAR(5) NULL,
-  `password` VARCHAR(45) NULL,
+  `password` VARCHAR(255) NULL,
   `state` VARCHAR(45) NULL,
+  `userType` VARCHAR(45) NULL,
   PRIMARY KEY (`idUser`))
 ENGINE = InnoDB
 COMMENT = '	';
@@ -90,7 +91,7 @@ DROP TABLE IF EXISTS `udmhealthsystem`.`User_Measurement` ;
 
 CREATE TABLE IF NOT EXISTS `udmhealthsystem`.`User_Measurement` (
   `idUserMeasurement` INT NOT NULL AUTO_INCREMENT,
-  `date` DATE NOT NULL,
+  `date` DATETIME NOT NULL,
   `idUser` INT NOT NULL,
   `idMeasurementType` INT NOT NULL,
   PRIMARY KEY (`idUserMeasurement`),
@@ -327,8 +328,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `udmhealthsystem`;
-INSERT INTO `udmhealthsystem`.`User` (`idUser`, `firstName`, `lastName`, `dob`, `email`, `phoneNumber`, `ssn`, `street`, `city`, `zipCode`, `password`, `state`) VALUES (1, 'Oscar', 'Martinez', '09/14/1984', 'oscar@gmail.com', '248-284-3694', '2336-36-3698', '1900 Brockton', 'Royal Oak', '48067', 'oscar', 'MI');
-INSERT INTO `udmhealthsystem`.`User` (`idUser`, `firstName`, `lastName`, `dob`, `email`, `phoneNumber`, `ssn`, `street`, `city`, `zipCode`, `password`, `state`) VALUES (2, 'Jose', 'Lopez', '02/11/1977', 'jose@jose.com', '248-248-2244', '233-55-5545', 'Calle 14', 'Troy', '46067', 'jose', 'MI');
+INSERT INTO `udmhealthsystem`.`User` (`idUser`, `firstName`, `lastName`, `dob`, `email`, `phoneNumber`, `ssn`, `street`, `city`, `zipCode`, `password`, `state`, `userType`) VALUES (1, 'Oscar', 'Martinez', '09/14/1984', 'oscar@gmail.com', '248-284-3694', '2336-36-3698', '1900 Brockton', 'Royal Oak', '48067', 'oscar', 'MI', NULL);
+INSERT INTO `udmhealthsystem`.`User` (`idUser`, `firstName`, `lastName`, `dob`, `email`, `phoneNumber`, `ssn`, `street`, `city`, `zipCode`, `password`, `state`, `userType`) VALUES (2, 'Jose', 'Lopez', '02/11/1977', 'jose@jose.com', '248-248-2244', '233-55-5545', 'Calle 14', 'Troy', '46067', 'jose', 'MI', NULL);
 
 COMMIT;
 
