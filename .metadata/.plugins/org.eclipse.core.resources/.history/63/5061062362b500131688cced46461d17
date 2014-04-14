@@ -1,0 +1,15 @@
+package com.udm.healthmonitor.internal;
+
+public enum State {
+
+	
+	private State(String code){
+		value = code;
+	}
+	
+	private String value;
+	
+	public String getStateValue(){
+		return value;
+	}
+}

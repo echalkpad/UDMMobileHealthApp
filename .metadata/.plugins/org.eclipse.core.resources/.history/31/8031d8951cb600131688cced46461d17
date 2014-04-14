@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="edit_first_name">First Name</string>
+    <string name="edit_last_name">Last Name</string>
+    <string name="edit_dob">Date of Birth</string>
+    <string name="edit_email">Email</string>
+    <string name="edit_phone_number">Phone Number</string>
+    <string name="edit_password">Password</string>
+    <string name="edit_phone">Phone</string>
+    <string name="edit_city">City</string>
+    <string name="edit_street">Street</string>
+    <string name="edit_state">State</string>
+    <string name="edit_zipCode">Zip Code</string>
+    
+    <string name="edit_systolic">Systolic</string>
+    <string name="edit_diastolic">Diastolic</string>
+    <string name="edit_date">Date</string>
+    <string name="edit_date_format">MM/DD/YYYY</string>
+    <string name="edit_time">Time</string>
+    <string name="edit_time_format">HH:MM:SS</string>
+    
+    
+    <string-array name="edit_states_arrays">
+        <item>Michigan</item>
+        <item>California</item>
+        <item>Florida</item>
+        <item>Texas</item>
+        <item>New York</item>
+        <item>Ohion</item>
+    </string-array>
+
+</resources>

@@ -11,10 +11,9 @@ import android.widget.ListView;
 
 public class Menu extends ListActivity{
 	
-	private String[] activities = {"DataEntry","DisplayMessageActivity", "DeviceScanActivity"};
-	private String[] activitiesNames = {"Personal Information","Display Lasted Information", "Current Blood Pressuare"};
+	private String[] activities = {"BloodPressureMenu", "BloodSugarManualEntryActivity", "TemperatureManualEntryActivity"};
+	private String[] activitiesNames = {"Blood Pressure", "Blood Sugar", "Temperature"};
 	private static final String PACKAGE_NAME = "com.udm.healthmonitor.";
-	private static final String BLUETOOTH_PACKAGE_NAME = "com.udm.healthmonitor.service.";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +26,18 @@ public class Menu extends ListActivity{
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		
-		String selectedActivity = activities[position];
-		String packge = null;
+		Bundle extras = getIntent().getExtras();
+		String value = null;
+		if (extras != null) {
+		    value = extras.getString(getString(R.string.user_name));
+		}
 		
-		if(position <= 1)
-			packge = PACKAGE_NAME;
-		else
-			packge = BLUETOOTH_PACKAGE_NAME;
-			
+		String selectedActivity = activities[position];
+	
 		try {
-			Class activityClassName = Class.forName(packge+selectedActivity);
+			Class activityClassName = Class.forName(PACKAGE_NAME+selectedActivity);
 			Intent openActivity = new Intent(Menu.this, activityClassName);
+			openActivity.putExtra(getString(R.string.user_name), value);
 			startActivity(openActivity);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

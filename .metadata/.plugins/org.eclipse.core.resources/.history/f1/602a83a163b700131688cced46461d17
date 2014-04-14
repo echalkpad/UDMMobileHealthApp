@@ -1,0 +1,127 @@
+package com.udm.healthmonitor;
+
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+
+import com.udm.healthmonitor.bloodPressure.ResponseStatus;
+import com.udm.healthmonitor.bloodPressure.WebserviceResponse;
+import com.udm.healthmonitor.internal.User;
+
+public class WebserviceService {
+
+	private static final String WSDL_URL = "http://192.168.1.11:8080/UDM/ws/udmHealth.wsdl";
+	private static final String NAMESPACE = "http://www.udm.com/UDMHealthWebServices";
+	private static final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+	private static final HttpTransportSE androidHttpTransport = new HttpTransportSE(WSDL_URL);
+
+	private static final String SOAP_ACTION_BLOOD_PRESSURE = "http://www.udm.com/SendBloodPressureMeasurement";
+	private static final String METHOD_NAME_BLOOD_PRESSURE = "sendBloodPressureMeasurementRequest";
+	
+	private static final String SOAP_ACTION_LOGIN = "http://www.udm.com/LoginRequest";
+	private static final String METHOD_NAME_LOGIN = "loginRequest";
+	
+	private static final String SOAP_CREATE_USER_LOGIN = "http://www.udm.com/CreateUserRequest";
+	private static final String METHOD_CREATE_USER_LOGIN = "createUserRequest";
+
+	private void addProperty(SoapObject soapRequest, String name, String value) {
+		PropertyInfo property = new PropertyInfo();
+		property.setNamespace(NAMESPACE);
+		property.setName(name);
+		property.setValue(value);
+		property.setType(String.class);
+		soapRequest.addProperty(property);
+		
+	}
+
+	private void invokeAndExtractWebServiceResponse(WebserviceResponse response, String soapAction) {
+		try {
+
+			// this is the actual part that will call the webservice
+			androidHttpTransport.call(soapAction, envelope);
+
+			if (envelope.bodyIn instanceof SoapFault) {
+				response.setErrorMessage(ResponseStatus.UNKNOWN.toString());
+				response.addErrorMessage((envelope.bodyIn).toString());
+			} else if (envelope.bodyIn instanceof SoapObject) {
+				// Get the SoapResult from the envelope body.
+				SoapObject result = (SoapObject) envelope.bodyIn;
+
+				if (result != null) {
+					SoapObject obj = (SoapObject) result.getProperty("responseHeader");
+					String responseStatus = obj.getPropertyAsString("statusCode");
+					response.setErrorMessage(responseStatus.toUpperCase());
+					if(!response.getStatus().equals(ResponseStatus.SUCCESS)){
+						SoapObject errorMessageList = (SoapObject) obj.getProperty("messageList");
+						for (int i = 0; i < errorMessageList.getPropertyCount(); i++) {
+							String errorMesage = errorMessageList.getPropertyAsString(i);
+							response.addErrorMessage(errorMesage);
+						}
+					}
+				} else {
+					response.setErrorMessage(ResponseStatus.UNKNOWN.toString());
+				}
+			}
+		} catch (Exception e) {
+			response.setErrorMessage(ResponseStatus.UNKNOWN.toString());
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public WebserviceResponse sendBloodPressureMeasurement(String email, String systolic, String diastolic, String measurementDate, String measurementTime) {
+		
+		WebserviceResponse response = new WebserviceResponse();
+		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_BLOOD_PRESSURE);
+		addProperty(request, "email", email);
+		addProperty(request, "systolic", systolic);
+		addProperty(request, "diastolic", diastolic);
+		addProperty(request, "measurementDate", measurementDate);
+		addProperty(request, "measurementTime", measurementTime);
+
+		envelope.setOutputSoapObject(request);
+
+		invokeAndExtractWebServiceResponse(response, SOAP_ACTION_BLOOD_PRESSURE);
+
+		return response;
+	}
+	
+	public WebserviceResponse authenticateUser(String email, String password){
+		WebserviceResponse response = new WebserviceResponse();
+		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_LOGIN);
+		addProperty(request, "email", email);
+		addProperty(request, "password", password);
+		
+		envelope.setOutputSoapObject(request);
+
+		invokeAndExtractWebServiceResponse(response, SOAP_ACTION_LOGIN);
+		return response;
+		
+	}
+	
+	public WebserviceResponse createUser(User user){
+		WebserviceResponse response = new WebserviceResponse();
+		SoapObject request = new SoapObject(NAMESPACE, METHOD_CREATE_USER_LOGIN);
+		addProperty(request, "firstName", user.getFirstName());
+		addProperty(request, "lastName", user.getLastName());
+		addProperty(request, "dateOfBirth", user.getDateOfBirth());
+		addProperty(request, "email", user.getEmail());
+		addProperty(request, "phoneNumber", user.getPhone());
+		addProperty(request, "ssn", "");
+		addProperty(request, "street", user.getStreet());
+		addProperty(request, "city", user.getCity());
+		addProperty(request, "zipCode", user.getZipCode());
+		addProperty(request, "password", user.getPassword());
+		addProperty(request, "state", user.getState());
+		
+		envelope.setOutputSoapObject(request);
+
+		invokeAndExtractWebServiceResponse(response, SOAP_CREATE_USER_LOGIN);
+		return response;
+		
+	}
+
+}

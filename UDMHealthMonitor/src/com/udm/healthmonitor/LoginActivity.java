@@ -1,5 +1,8 @@
 package com.udm.healthmonitor;
 
+import com.udm.healthmonitor.bloodPressure.ResponseStatus;
+import com.udm.healthmonitor.bloodPressure.WebserviceResponse;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -23,12 +26,7 @@ import android.support.v4.app.NavUtils;
  * well.
  */
 public class LoginActivity extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
+	private WebserviceService webservice = new WebserviceService();
 
 	/**
 	 * The default email to populate the email field with.
@@ -86,6 +84,15 @@ public class LoginActivity extends Activity {
 					@Override
 					public void onClick(View view) {
 						attemptLogin();
+					}
+				});
+		
+		findViewById(R.id.register_button).setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent intent = new Intent("com.udm.healthmonitor.DataEntry");
+						startActivity(intent);
 					}
 				});
 	}
@@ -241,16 +248,12 @@ public class LoginActivity extends Activity {
 				return false;
 			}
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
+			WebserviceResponse response = webservice.authenticateUser(mEmail, mPassword);
+			if(response.getStatus().equals(ResponseStatus.SUCCESS))
+				return true;
+			else
+				return false;
 
-			// TODO: register the new account here.
-			return true;
 		}
 
 		@Override
@@ -260,13 +263,13 @@ public class LoginActivity extends Activity {
 
 			if (success) {
 				Intent mainActivity = new Intent("com.udm.healthmonitor.Menu");
+				mainActivity.putExtra(getString(R.string.user_name), mEmail);
 				startActivity(mainActivity);
 				finish();
 				
 				
 			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+				mPasswordView.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
 			}
 		}

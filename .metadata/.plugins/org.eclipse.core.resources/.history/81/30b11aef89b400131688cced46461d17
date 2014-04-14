@@ -1,0 +1,42 @@
+package com.udm.healthmonitor;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.StrictMode;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.udm.healthmonitor.bloodPressure.WebserviceResponse;
+
+public class BloodPressureManualEntryActivity extends Activity implements OnClickListener{
+	
+
+	
+	WebserviceService webservice = new WebserviceService();
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_blood_pressure_manual);
+		
+		Button save_button = (Button) findViewById(R.id.button_save);
+		
+		save_button.setOnClickListener(this);
+		
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	    StrictMode.setThreadPolicy(policy);
+	}
+
+	@Override
+	public void onClick(View v) {
+		EditText systolic = (EditText) findViewById(R.id.data_entry_systolic);
+		EditText diastolic = (EditText) findViewById(R.id.data_entry_diastolic);
+		WebserviceResponse response = webservice.sendBloodPressureMeasurement("oscar@gmail.com", systolic.getText().toString(), diastolic.getText().toString(), "09/09/2014", "09:09:12");
+		Toast.makeText(getApplicationContext(), "Response"+response.getStatus(),Toast.LENGTH_LONG).show();
+	
+		
+	}
+}

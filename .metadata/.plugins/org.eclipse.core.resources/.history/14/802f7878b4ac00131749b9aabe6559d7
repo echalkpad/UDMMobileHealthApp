@@ -1,0 +1,25 @@
+package com.udm.healthmonitor.bloodPressure;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class WebserviceResponse {
+	
+	private ResponseStatus status;
+	private List<String> errorMessageList;
+	
+	public WebserviceResponse(){
+		errorMessageList = new ArrayList<String>();
+	}
+	
+	public void setErrorMessage(String errorMessage){
+		if(errorMessage.equals(ResponseStatus.))
+	}
+	
+	public void addErrorMessage(String message){
+		errorMessageList.add(message);
+	}
+	
+	
+
+}

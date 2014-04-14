@@ -2,4 +2,5 @@
 //org.eclipse.debug.core.PREFERRED_DELEGATES/org.eclipse.cdt.launch.attachLaunchType=org.eclipse.cdt.dsf.gdb.launch.attachCLaunch,debug
 //org.eclipse.debug.core.PREFERRED_DELEGATES/org.eclipse.cdt.launch.postmortemLaunchType=org.eclipse.cdt.dsf.gdb.launch.coreCLaunch,debug
 eclipse.preferences.version=1
+org.eclipse.debug.core.PREF_BREAKPOINT_MANAGER_ENABLED_STATE=true
 prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<watchExpressions>\n<expression enabled\="true" text\="characteristic"/>\n<expression enabled\="true" text\="mNotifyCharacteristic"/>\n<expression enabled\="true" text\="uuid"/>\n<expression enabled\="true" text\="SampleGattAttributes.BLOOD_PREASSURE_FEATURE"/>\n<expression enabled\="true" text\="uuid.equals(SampleGattAttributes.BLOOD_PREASSURE_FEATURE)"/>\n</watchExpressions>\n

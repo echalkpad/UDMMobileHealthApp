@@ -1,0 +1,5 @@
+package com.udm.healthmonitor.bloodPressure;
+
+public enum ResponseStatus {
+	SUCCESS, FAILURE, UNKNOWN
+}

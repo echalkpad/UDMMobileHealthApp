@@ -1,0 +1,155 @@
+package com.udm.healthmonitor;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.webkit.WebBackForwardList;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.udm.healthmonitor.bloodPressure.WebserviceResponse;
+import com.udm.healthmonitor.internal.User;
+
+public class DataEntry extends Activity implements OnClickListener{
+	
+	private String firstName;
+	private String lastName;
+	private String dateOfBirth;
+	private String email;
+	private String password;
+	private String rePassword;
+	private String phone;
+	private String city;
+	private String street;
+	private String state;
+	private String zipCode;
+
+	private WebserviceService webservice = new WebserviceService();
+	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_data_entry);
+		
+		Button save_button = (Button) findViewById(R.id.button_save);
+		Button cancel_button = (Button) findViewById(R.id.button_cancel);
+		
+		save_button.setOnClickListener(this);
+		cancel_button.setOnClickListener(this);
+		
+		
+	}
+
+	@Override
+	public void onClick(View v) {
+		
+		firstName = ((EditText) findViewById(R.id.data_entry_first_name)).getText().toString().trim();
+		lastName = ((EditText) findViewById(R.id.data_entry_last_name)).getText().toString().trim();
+		dateOfBirth = ((EditText) findViewById(R.id.data_dob)).getText().toString().trim();
+		email = ((EditText) findViewById(R.id.data_email)).getText().toString().trim();
+		password = ((EditText) findViewById(R.id.data_password)).getText().toString().trim();
+		rePassword = ((EditText) findViewById(R.id.data_re_password)).getText().toString().trim();
+		phone = ((EditText) findViewById(R.id.data_phone)).getText().toString().trim();
+		city = ((EditText) findViewById(R.id.data_city)).getText().toString().trim();
+		street = ((EditText) findViewById(R.id.data_street)).getText().toString().trim();
+		state = ((EditText) findViewById(R.id.data_state)).getText().toString().trim();
+		zipCode = ((EditText) findViewById(R.id.data_zipCode)).getText().toString().trim();
+		
+		if(!hasInvalidFields()){
+			User user = new User();
+			user.setCity(city);
+			user.setDateOfBirth(dateOfBirth);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setEmail(email);
+			user.setPassword(password);
+			user.setPhone(phone);
+			user.setCity(city);
+			user.setStreet(street);
+			user.setState(state);
+			user.setZipCode(zipCode);
+			
+			WebserviceResponse response = webservice.createUser(user);
+		}
+		
+	}
+	
+	private void resetForm(){
+		((EditText) findViewById(R.id.data_entry_first_name)).setText("");
+		((EditText) findViewById(R.id.data_entry_last_name)).setText("");
+		((EditText) findViewById(R.id.data_dob)).setText("");
+		((EditText) findViewById(R.id.data_email)).setText("");
+		((EditText) findViewById(R.id.data_password)).setText("");
+		((EditText) findViewById(R.id.data_re_password)).setText("");
+		((EditText) findViewById(R.id.data_phone)).setText("");
+		((EditText) findViewById(R.id.data_city)).setText("");
+		((EditText) findViewById(R.id.data_street)).setText("");
+		((EditText) findViewById(R.id.data_state)).setText("");
+		((EditText) findViewById(R.id.data_zipCode)).setText("");
+		
+		firstName = "";
+		lastName = "";
+		dateOfBirth = "";
+		email = "";
+		password = "";
+		rePassword = "";
+		phone = "";
+		city = "";
+		street = "";
+		state = "";
+		zipCode = "";
+		
+	}
+	
+	private boolean hasInvalidFields(){
+		boolean hasInvalidFields = false;
+		if(firstName.equals("")){
+			((EditText) findViewById(R.id.data_entry_first_name)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(lastName.equals("")){
+			((EditText) findViewById(R.id.data_entry_last_name)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(dateOfBirth.equals("")){
+			((EditText) findViewById(R.id.data_dob)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(email.equals("")){
+			((EditText) findViewById(R.id.data_email)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}if(password.equals("")){
+			((EditText) findViewById(R.id.data_password)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(rePassword.equals("")){
+			((EditText) findViewById(R.id.data_re_password)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(phone.equals("")){
+			((EditText) findViewById(R.id.data_phone)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(city.equals("")){
+			((EditText) findViewById(R.id.data_city)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(street.equals("")){
+			((EditText) findViewById(R.id.data_street)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(state.equals("")){
+			((EditText) findViewById(R.id.data_state)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(zipCode.equals("")){
+			((EditText) findViewById(R.id.data_zipCode)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		return hasInvalidFields;
+	}
+
+}

@@ -1,0 +1,58 @@
+package com.udm.healthmonitor;
+
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.text.InputType;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.ToggleButton;
+
+public class DataEntry extends Activity implements OnClickListener{
+	
+	private String firstName;
+	private String lastName;
+	private String dateOfBirth;
+	private String email;
+	private String password;
+	private String rePassword;
+	private String phone;
+	private String city;
+	private String street;
+	private String state;
+	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_data_entry);
+		
+		Button save_button = (Button) findViewById(R.id.button_save);
+		Button cancel_button = (Button) findViewById(R.id.button_cancel);
+		
+		save_button.setOnClickListener(this);
+		cancel_button.setOnClickListener(this);
+		
+		
+	}
+
+	@Override
+	public void onClick(View v) {
+		
+		firstName = ((EditText) findViewById(R.id.data_entry_first_name)).getText().toString().trim();
+		lastName = ((EditText) findViewById(R.id.data_entry_last_name)).getText().toString().trim();
+		dateOfBirth = ((EditText) findViewById(R.id.edit_dob).getText().toString().trim();
+		email = ((EditText) findViewById(R.id.data_entry_time)).getText().toString().trim();
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		    user = extras.getString(getString(R.string.user_name));
+		}
+		
+	}
+
+}

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.udm.healthmonitor"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="18" />
+    
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+ 
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        
+        
+        
+        <activity  android:name="com.udm.healthmonitor.Prefes"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.udm.healthmonitor.Prefes" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.udm.healthmonitor.About"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <action android:name="com.udm.healthmonitor.About" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+         <activity
+            android:name="com.udm.healthmonitor.DataEntry"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.udm.healthmonitor.DataEntry" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.udm.healthmonitor.Splash"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.udm.healthmonitor.Menu"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.udm.healthmonitor.Menu" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.udm.healthmonitor.BloodPressureMenu"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.udm.healthmonitor.BloodPressureMenu" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.udm.healthmonitor.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.udm.healthmonitor.MainActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.udm.healthmonitor.DisplayMessageActivity"
+            android:label="@string/title_activity_display_message"
+            android:parentActivityName="com.udm.healthmonitor.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.udm.healthmonitor.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.udm.healthmonitor.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName="com.udm.healthmonitor.MainActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.udm.healthmonitor.MainActivity" />
+        </activity>
+        
+        <activity
+            android:name="com.udm.healthmonitor.BloodPressureManualEntryActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.udm.healthmonitor.BloodPressureManualEntryActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        
+         <activity android:name="com.udm.healthmonitor.service.DeviceScanActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+               <action android:name="com.udm.healthmonitor.service.DeviceScanActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.udm.healthmonitor.service.DeviceControlActivity"/>
+        <service android:name="com.udm.healthmonitor.service.BluetoothLeService" android:enabled="true"/>
+       
+        
+    </application>
+
+</manifest>

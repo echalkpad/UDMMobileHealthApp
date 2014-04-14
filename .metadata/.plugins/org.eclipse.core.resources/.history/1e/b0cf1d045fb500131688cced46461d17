@@ -1,0 +1,115 @@
+package com.udm.healthmonitor;
+
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.text.InputType;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.ToggleButton;
+
+public class DataEntry extends Activity implements OnClickListener{
+	
+	private String firstName;
+	private String lastName;
+	private String dateOfBirth;
+	private String email;
+	private String password;
+	private String rePassword;
+	private String phone;
+	private String city;
+	private String street;
+	private String state;
+	private String user;
+	private WebserviceService webservice = new WebserviceService();
+	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_data_entry);
+		
+		Button save_button = (Button) findViewById(R.id.button_save);
+		Button cancel_button = (Button) findViewById(R.id.button_cancel);
+		
+		save_button.setOnClickListener(this);
+		cancel_button.setOnClickListener(this);
+		
+		
+	}
+
+	@Override
+	public void onClick(View v) {
+		
+		firstName = ((EditText) findViewById(R.id.data_entry_first_name)).getText().toString().trim();
+		lastName = ((EditText) findViewById(R.id.data_entry_last_name)).getText().toString().trim();
+		dateOfBirth = ((EditText) findViewById(R.id.data_dob)).getText().toString().trim();
+		email = ((EditText) findViewById(R.id.data_email)).getText().toString().trim();
+		password = ((EditText) findViewById(R.id.data_password)).getText().toString().trim();
+		rePassword = ((EditText) findViewById(R.id.data_re_password)).getText().toString().trim();
+		phone = ((EditText) findViewById(R.id.data_phone)).getText().toString().trim();
+		city = ((EditText) findViewById(R.id.data_city)).getText().toString().trim();
+		street = ((EditText) findViewById(R.id.data_street)).getText().toString().trim();
+		state = ((EditText) findViewById(R.id.data_state)).getText().toString().trim();
+		
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		    user = extras.getString(getString(R.string.user_name));
+		}
+		
+		if(!hasInvalidFields()){
+			
+		}
+		
+	}
+	
+	private boolean hasInvalidFields(){
+		boolean hasInvalidFields = false;
+		if(firstName.equals("")){
+			((EditText) findViewById(R.id.data_entry_first_name)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(lastName.equals("")){
+			((EditText) findViewById(R.id.data_entry_last_name)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(dateOfBirth.equals("")){
+			((EditText) findViewById(R.id.data_dob)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(email.equals("")){
+			((EditText) findViewById(R.id.data_email)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}if(password.equals("")){
+			((EditText) findViewById(R.id.data_password)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(rePassword.equals("")){
+			((EditText) findViewById(R.id.data_re_password)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(phone.equals("")){
+			((EditText) findViewById(R.id.data_phone)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(city.equals("")){
+			((EditText) findViewById(R.id.data_city)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(street.equals("")){
+			((EditText) findViewById(R.id.data_street)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		if(state.equals("")){
+			((EditText) findViewById(R.id.data_state)).setError(getString(R.string.error_field_required));
+			hasInvalidFields = true;
+		}
+		return hasInvalidFields;
+	}
+
+}

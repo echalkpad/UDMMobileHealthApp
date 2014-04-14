@@ -1,0 +1,14 @@
+package com.udm.healthmonitor;
+
+public class WebserviceService {
+	
+	private static final String WSDL_URL = "http://192.168.1.11:8080/ws/udmHealth.wsdl";
+	private static final String NAMESPACE = "http://www.udm.com/UDMHealthWebServices";
+	
+	private static final String SOAP_ACTION_BLOOD_PRESSURE = "http://www.udm.com/SendBloodPressureMeasurement";	
+	private static final String METHOD_NAME_BLOOD_PRESSURE = "sendBloodPressureMeasurementRequest";
+	
+	
+	
+
+}

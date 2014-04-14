@@ -1,0 +1,39 @@
+package com.udm.healthmonitor;
+
+import org.ksoap2.serialization.SoapObject;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class BloodPressureManualEntryActivity extends Activity implements OnClickListener{
+	
+	private static final String NAMESPACE = "http://www.udm.com/UDMHealthWebServices";
+	private static final String URL = "http://192.168.1.11:8080/ws/udmHealth.wsdl";	
+	private static final String METHOD_NAME = "sendBloodPressureMeasurement";
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_blood_pressure_manual);
+		
+		Button save_button = (Button) findViewById(R.id.button_save);
+		
+		save_button.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		EditText systolic = (EditText) findViewById(R.id.data_entry_systolic);
+		EditText diastolic = (EditText) findViewById(R.id.data_entry_diastolic);
+		
+		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+		
+		System.out.println("Systolic: "+systolic.getText().toString());
+		System.out.println("Diastolic: "+diastolic.getText().toString());
+		
+	}
+}
