@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.udm.com/UDMHealthWebServices" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.udm.com/UDMHealthWebServices" targetNamespace="http://www.udm.com/UDMHealthWebServices">
+  <wsdl:types xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.udm.com/UDMHealthWebServices" elementFormDefault="qualified" targetNamespace="http://www.udm.com/UDMHealthWebServices" xmlns:tns="http://www.udm.com/UDMHealthWebServices">
+
+	<xsd:complexType name="responseHeaderType" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:element name="statusCode" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:simpleType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+					<xsd:restriction base="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+						<xsd:maxLength value="10" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="messageList" type="tns:message" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="message" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:element maxOccurs="unbounded" name="message" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:element name="createUserRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="firstName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="lastName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="dateOfBirth" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="phoneNumber" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="ssn" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="street" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="city" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="zipCode" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="password" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="state" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="createUserResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="responseHeader" nillable="false" type="tns:responseHeaderType" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="sendBloodPressureMeasurementRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="measurementDate" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="measurementTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="systolic" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="diastolic" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="sendBloodPressureMeasurementResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="responseHeader" nillable="false" type="tns:responseHeaderType" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="temperatureMeasurementRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="measurementDate" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="measurementTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="value" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="scale" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="temperatureMeasurementResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="responseHeader" nillable="false" type="tns:responseHeaderType" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="bloodSugarMeasurementRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="measurementDate" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="measurementTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="value" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+		<xsd:element name="bloodSugarMeasurementResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="responseHeader" nillable="false" type="tns:responseHeaderType" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="loginRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="email" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+				<xsd:element name="password" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="loginResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				<xsd:element name="responseHeader" nillable="false" type="tns:responseHeaderType" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="bloodSugarMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:bloodSugarMeasurementResponse" name="bloodSugarMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bloodSugarMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:bloodSugarMeasurementRequest" name="bloodSugarMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendBloodPressureMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:sendBloodPressureMeasurementResponse" name="sendBloodPressureMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createUserResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:createUserResponse" name="createUserResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="temperatureMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:temperatureMeasurementResponse" name="temperatureMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="temperatureMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:temperatureMeasurementRequest" name="temperatureMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendBloodPressureMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:sendBloodPressureMeasurementRequest" name="sendBloodPressureMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createUserRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:createUserRequest" name="createUserRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:loginRequest" name="loginRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:loginResponse" name="loginResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="udmHealthPort" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:operation name="bloodSugarMeasurement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:bloodSugarMeasurementRequest" name="bloodSugarMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:bloodSugarMeasurementResponse" name="bloodSugarMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendBloodPressureMeasurement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:sendBloodPressureMeasurementRequest" name="sendBloodPressureMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:sendBloodPressureMeasurementResponse" name="sendBloodPressureMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUser" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:createUserRequest" name="createUserRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:createUserResponse" name="createUserResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="temperatureMeasurement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:temperatureMeasurementRequest" name="temperatureMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:temperatureMeasurementResponse" name="temperatureMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="login" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:loginRequest" name="loginRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:loginResponse" name="loginResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="udmHealthPortSoap11" type="tns:udmHealthPort" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    <wsdl:operation name="bloodSugarMeasurement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="http://www.udm.com/BloodSugarMeasurementRequest" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input name="bloodSugarMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+      <wsdl:output name="bloodSugarMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendBloodPressureMeasurement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="http://www.udm.com/SendBloodPressureMeasurement" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input name="sendBloodPressureMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+      <wsdl:output name="sendBloodPressureMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUser" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="http://www.udm.com/CreateUserRequest" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input name="createUserRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+      <wsdl:output name="createUserResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="temperatureMeasurement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="http://www.udm.com/TemperatureMeasurementRequest" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input name="temperatureMeasurementRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+      <wsdl:output name="temperatureMeasurementResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="login" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="http://www.udm.com/LoginRequest" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input name="loginRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+      <wsdl:output name="loginResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="udmHealthPortService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:port binding="tns:udmHealthPortSoap11" name="udmHealthPortSoap11" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:address location="https://localhost:8443/ws/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

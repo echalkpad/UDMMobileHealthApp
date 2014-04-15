@@ -1,0 +1,27 @@
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+ 
+	<New class="org.eclipse.jetty.plus.jndi.EnvEntry">
+		<Arg>java:lwsDS</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">oracle.jdbc.driver.OracleDriver</Set>
+				<Set name="url">jdbc:oracle:thin:@(DESCRIPTION=(FAILOVER=on)(LOAD_BALANCE=on)(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=appd-vip1.db.budco.com)(PORT=1527))(ADDRESS=(PROTOCOL=TCP)(HOST=appd-vip2.db.budco.com)(PORT=1527)))(CONNECT_DATA=(SERVICE_NAME=appd.budco.com)))</Set>
+				<Set name="username"></Set>
+				<Set name="password"></Set>
+			</New>
+		</Arg>
+	</New>
+ 
+	<New class="org.eclipse.jetty.plus.jndi.EnvEntry">
+		<Arg>java:blsDS</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">oracle.jdbc.driver.OracleDriver</Set>
+				<Set name="url">jdbc:oracle:thin:@(DESCRIPTION=(FAILOVER=on)(LOAD_BALANCE=on)(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=budd-vip1.db.budco.com)(PORT=1527))(ADDRESS=(PROTOCOL=TCP)(HOST=budd-vip2.db.budco.com)(PORT=1527)))(CONNECT_DATA=(SERVICE_NAME=budd.budco.com)))</Set>
+				<Set name="username">bls_wip_webservice_user</Set>
+				<Set name="password"></Set>
+			</New>
+		</Arg>
+	</New>
+ 
+</Configure>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+	<context:component-scan base-package="com.udm.health" />
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+	<bean id="springContextHolder" class="com.udm.health.spring.SpringContextHolder" />
+	
+	<bean id="openSessionInView" class="org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter" />
+	
+	<sec:http use-expressions="true">
+		<sec:intercept-url pattern="/admin/login" access="permitAll" />
+		<sec:intercept-url pattern="/admin/loginfailed" access="permitAll" />
+		<sec:intercept-url pattern="/admin/users" access="hasRole('ADMIN')" />
+		<sec:intercept-url pattern="/admin/logs" access="hasRole('ADMIN')" />
+		<sec:intercept-url pattern="/admin/staff" access="hasAnyRole('ADMIN','VIEW_LOG_XML')" />
+		<sec:intercept-url pattern="/admin/patients" access="hasAnyRole('DOCTOR', 'NURSE')" />
+		<sec:intercept-url pattern="/admin/lookup" access="hasAnyRole('DOCTOR', 'NURSE')" />
+		<sec:intercept-url pattern="/admin/**" access="hasAnyRole('ADMIN','VIEW_LOG_XML','DOCTOR', 'NURSE')" />
+		<sec:form-login login-page="/admin/login" default-target-url="/admin" authentication-failure-url="/admin/loginfailed" />
+		<sec:logout logout-success-url="/admin" />
+	</sec:http>
+	
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
+	
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider>
+			<sec:password-encoder ref="passwordEncoder" />
+			<sec:jdbc-user-service data-source-ref="UDMDataSource"
+				users-by-username-query="select username,password,enabled from web_users where username=?"
+				authorities-by-username-query="select ua.username,a.authority from user_authorities ua, authorities a where ua.authority_pk = a.authority_pk and ua.username=?"
+			/>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="dataSource" ref="UDMDataSource" />
+	</bean>
+	
+    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+    	<property name="contextPath" value="com.udm.health.domain.ws" />
+    </bean>
+	
+
+<!-- 	<sec:authentication-manager> -->
+<!-- 		<sec:authentication-provider ref="daoAuthenticationProvider" /> -->
+<!-- 	</sec:authentication-manager> -->
+    
+	<!--
+    <bean id="webServiceAuthenticationManager" class="org.springframework.security.authentication.ProviderManager">
+	  <property name="providers">
+	    <list>
+	      <ref local="daoAuthenticationProvider"/>
+	    </list>
+	  </property>
+	</bean>
+	-->
+<!--     <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider"> -->
+<!-- 	  <property name="userDetailsService" ref="inMemoryDaoImpl"/> -->
+<!-- 	</bean> -->
+	
+<!-- 	<sec:user-service id="inMemoryDaoImpl"> -->
+<!-- 	    <sec:user name="pfizer" password="7xWFUAv5" authorities="ROLE_USER" /> -->
+<!-- 	</sec:user-service> -->
+	
+<!-- 	<bean id="wcsStoredProcedureDao" class="com.udm.health.dao.WcsStoredProcedureDao"> -->
+<!-- 		<property name="dataSource" ref="wcsDataSource" /> -->
+<!-- 	</bean> -->
+	
+	<bean id="udmRequestProcessor" class="com.udm.health.processor.UDMRequestProcessor">
+		<property name="processorMap">
+			<map>
+				<entry key="com.udm.health.domain.internal.User">
+					<bean class="com.udm.health.processor.CreateUserProcessor" />					
+				</entry>
+				<entry key="com.udm.health.domain.ws.LoginRequest">
+					<bean class="com.udm.health.processor.LoginProcessor" />					
+				</entry>		
+				<entry key="com.udm.health.domain.ws.SendBloodPressureMeasurementRequest">
+					<bean class="com.udm.health.processor.SendBloodPreasureMeasurementProcessor" />					
+				</entry>		
+				<entry key="com.udm.health.domain.ws.TemperatureMeasurementRequest">
+					<bean class="com.udm.health.processor.TemperatureMeasurementProcessor" />					
+				</entry>
+				<entry key="com.udm.health.domain.ws.BloodSugarMeasurementRequest">
+					<bean class="com.udm.health.processor.BloodSugarMeasurementProcessor" />					
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="validator" class="com.udm.health.validation.Validator">
+		<property name="validators">
+			<list>
+				<bean class="com.udm.health.validation.validator.BloodSugarMeasurementValidator" />
+				<bean class="com.udm.health.validation.validator.TemperatureMeasurementValidator" />
+				<bean class="com.udm.health.validation.validator.SendBloodPressureMeasurementValidator" />
+				<bean class="com.udm.health.validation.validator.LoginValidator" />
+				<bean class="com.udm.health.validation.validator.CreateUserRequestValidator" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="validationResponseCreator" class="com.udm.health.response.ResponseAppender">
+		<property name="adapters">
+			<!-- IMPORTANT: Order most to least specific. -->
+			<list>
+				<bean class="com.udm.health.response.TemperatureMeasurementAdapter" />
+				<bean class="com.udm.health.response.BloodSugarMeasurementAdapter" />
+				<bean class="com.udm.health.response.SendBloodPressureMeasurementValidationAdapter" />
+				<bean class="com.udm.health.response.LoginValidationAdapter" />
+				<bean class="com.udm.health.response.CreateUserValidationAdapter" />
+				<bean class="com.udm.health.response.GenericValidationAdapter" />
+				<bean class="com.udm.health.response.AuthenticationExceptionAdapter" />
+				<bean class="com.udm.health.response.CatchAllExceptionAdapter" />
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
+		<property name="mappingFiles">
+			<list>
+				<value>mapping.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="springValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	
+</beans>

@@ -1,0 +1,108 @@
+#header ul {
+	list-style-type: none;
+	padding-left: 5px;
+}
+
+#header li {
+	display: inline;
+	padding-right: 5px;
+}
+
+.right {
+	float: right;
+}
+
+.chartContainer {
+	min-width: 400px;
+	height: 400px;
+	margin: 0 auto;
+}
+
+.button .ui-button-text {
+	padding: .2em .5em;
+	line-height: 1;
+	font-size: 1em;
+}
+
+.dialogButtonBox {
+	float: right;
+	margin-top: 20px;
+}
+
+.available,
+.moveButtons,
+.assigned {
+	display: table-cell;
+}
+
+.moveButtons {
+	vertical-align: middle;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#privilegesBox select {
+	width: 230px;
+}
+
+div.row {
+	display: table-row;
+}
+
+#addBoxInput label {
+	display: table-cell;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	text-align: right;
+}
+
+#addBoxInput input,
+#addBoxInput select {
+	display: table-cell;	
+}
+
+.formError {
+	color: red;
+}
+
+.editableDiv {
+	cursor: pointer;
+}
+
+#version {
+	float: right;
+}
+
+#toolbar {
+	padding: 3px 4px;
+	margin: 1px 1% 1%;
+	text-align:center;
+	font-size: 12;
+}
+
+.divRow{
+	padding: 3px 4px;
+	margin: 1px 1% 1%;
+	text-align:center;
+}
+
+.divRowTable{
+	margin: 1px 25%;
+	background-color:#eee;
+}
+
+#filterContainer{
+	width: 700px;
+	padding: 0.4em; 
+	position: relative;
+	text-align: center;
+	margin: 1px 20%;
+}
+
+#personalInformationContainer{
+	width: 700px;
+	padding: 0.4em; 
+	position: relative;
+	text-align: center;
+	margin: 1px 20%;
+}

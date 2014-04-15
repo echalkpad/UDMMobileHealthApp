@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<configuration>
+		<custom-converters>
+			<converter type="com.udm.health.dozer.StringToLongConverter">
+				<class-a>java.lang.String</class-a>
+				<class-b>java.lang.Long</class-b>
+			</converter>
+		</custom-converters>
+	</configuration>
+
+
+	<mapping>
+		<class-a>com.udm.health.domain.ws.CreateUserRequest</class-a>
+		<class-b>com.udm.health.domain.internal.User</class-b>
+		<field>
+			<a>firstName</a>
+			<b>firstName</b>
+		</field>
+		<field>
+			<a>lastName</a>
+			<b>lastName</b>
+		</field>
+		<field>
+			<a>email</a>
+			<b>email</b>
+		</field>
+		<field>
+			<a>phoneNumber</a>
+			<b>phoneNumber</b>
+		</field>
+		<field>
+			<a>ssn</a>
+			<b>ssn</b>
+		</field>
+		<field>
+			<a>street</a>
+			<b>street</b>
+		</field>
+		<field>
+			<a>city</a>
+			<b>city</b>
+		</field>
+		<field>
+			<a>zipCode</a>
+			<b>zipCode</b>
+		</field>
+		<field>
+			<a>dateOfBirth</a>
+			<b>dateOfBirth</b>
+		</field>
+		<field>
+			<a>password</a>
+			<b>password</b>
+		</field>
+	</mapping>
+
+
+
+</mappings>

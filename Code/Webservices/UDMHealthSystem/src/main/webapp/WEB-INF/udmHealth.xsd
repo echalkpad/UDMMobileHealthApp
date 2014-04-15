@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.udm.com/UDMHealthWebServices" xmlns:tns="http://www.udm.com/UDMHealthWebServices"
+	targetNamespace="http://www.udm.com/UDMHealthWebServices" elementFormDefault="qualified">
+
+	<xsd:complexType name="responseHeaderType">
+		<xsd:sequence>
+			<xsd:element name="statusCode">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="messageList" type="tns:message" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="message">
+		<xsd:sequence>
+			<xsd:element name="message" type="xsd:string" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:element name="createUserRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="firstName" type="xsd:string" />
+				<xsd:element name="lastName" type="xsd:string" />
+				<xsd:element name="dateOfBirth" type="xsd:string" />
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="phoneNumber" type="xsd:string" />
+				<xsd:element name="ssn" type="xsd:string" />
+				<xsd:element name="street" type="xsd:string" />
+				<xsd:element name="city" type="xsd:string" />
+				<xsd:element name="zipCode" type="xsd:string" />
+				<xsd:element name="password" type="xsd:string" />
+				<xsd:element name="state" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="createUserResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="responseHeader" type="tns:responseHeaderType" nillable="false" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="sendBloodPressureMeasurementRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="measurementDate" type="xsd:string" />
+				<xsd:element name="measurementTime" type="xsd:string" />
+				<xsd:element name="systolic" type="xsd:string" />
+				<xsd:element name="diastolic" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="sendBloodPressureMeasurementResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="responseHeader" type="tns:responseHeaderType" nillable="false" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="temperatureMeasurementRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="measurementDate" type="xsd:string" />
+				<xsd:element name="measurementTime" type="xsd:string" />
+				<xsd:element name="value" type="xsd:string" />
+				<xsd:element name="scale" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="temperatureMeasurementResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="responseHeader" type="tns:responseHeaderType" nillable="false" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="bloodSugarMeasurementRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="measurementDate" type="xsd:string" />
+				<xsd:element name="measurementTime" type="xsd:string" />
+				<xsd:element name="value" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+		<xsd:element name="bloodSugarMeasurementResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="responseHeader" type="tns:responseHeaderType" nillable="false" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="loginRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="password" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="loginResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="responseHeader" type="tns:responseHeaderType" nillable="false" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>
