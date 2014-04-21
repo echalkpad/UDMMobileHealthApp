@@ -54,7 +54,8 @@ public class UserService {
 		user.setEmail(medicalStaff.getUsername());
 		user.setFirstName(medicalStaff.getFirstName());
 		user.setLastName(medicalStaff.getLastName());
-		user.setPassword(passwordEncoder.encode(medicalStaff.getPassword()));
+//		user.setPassword(passwordEncoder.encode(medicalStaff.getPassword()));
+		user.setPassword(medicalStaff.getPassword());
 		user.setPhoneNumber(medicalStaff.getPhoneNumber());
 		user.setSsn(medicalStaff.getSsn());
 		user.setState(State.getState(medicalStaff.getState()));

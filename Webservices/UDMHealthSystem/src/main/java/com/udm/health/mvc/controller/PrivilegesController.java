@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -67,9 +68,11 @@ private static final Logger log = LoggerFactory.getLogger(PrivilegesController.c
 	}
 	
 	@RequestMapping(value="/admin/privileges/savePrivileges/{username}", method=RequestMethod.POST, consumes="application/json")
-	public @ResponseBody String savePrivileges(@PathVariable String username, @RequestBody List<String> privileges) {
+	public @ResponseBody String savePrivileges(@PathVariable String username, @RequestBody List<String> parameters) {
+		String email = parameters.get(0);
+		List<String> privileges = parameters.subList(1, parameters.size());
 		try {
-			userAuthorityService.saveAuthorities(username, privileges);
+			userAuthorityService.saveAuthorities(email, privileges);
 		} catch (Exception e) {
 			log.warn("Failed to update privileges.", e);
 			return e.getMessage();

@@ -17,8 +17,8 @@ public class UserAuthorityDao extends BaseDao<UserAuthority, Long> {
 	}
 	
 	public List<UserAuthority> findByUserName(String username) {
-		TypedQuery<UserAuthority> query = entityManager.createQuery("select ua from UserAuthority ua where ua.username = :username", UserAuthority.class);
-		query.setParameter("username", username);
+		TypedQuery<UserAuthority> query = entityManager.createQuery("select ua from UserAuthority ua where ua.username like :username", UserAuthority.class);
+		query.setParameter("username", username+"%");
 		return query.getResultList();
 	}
 	

@@ -105,14 +105,15 @@ $(function() {
 		
 		// save privilege changes
 		$('#privilegesSave').click(function(event) {
-			var username = $('#username').val();
+			var username = $('#email').val();
 			var data = [];
+			data.push(username);
 			$('#privilegesBox .assignedPrivileges option').each(function(index, option) {
 				data.push(option.value);
 			});
 			
 			$.ajax({
-				url:contextPath + "/admin/privileges/savePrivileges/" + username,
+				url:contextPath + "/admin/privileges/savePrivileges/" +username,
 				type:"POST",
 				data:JSON.stringify(data),
 				contentType:"application/json; charset=utf-8",
@@ -136,7 +137,7 @@ function resetPassword(id) {
 function displayPrivileges(username) {
 	$('#privilegesBox .availablePrivileges').empty();
 	$('#privilegesBox .assignedPrivileges').empty();
-	$('#username').val(username);
+	$('#email').val(username);
 	
 	$.get(contextPath + "/admin/privileges/all",
 			function(privileges) {
@@ -214,7 +215,7 @@ function deleteUser(id) {
 			</form>
 		</div>
 		<div id="privilegesBox" title="Privileges">
-			<input type="hidden" id="username" value="" />
+			<input type="hidden" id="email" value="" />
 			<div style="display: table-row; width= 100%;">
 				<div class="available">
 					<h4>Available</h4>
